@@ -1,0 +1,425 @@
+.card-sand.card-sand--pull,
+.card-sand.card-sand--magic {
+  min-height: 800px;
+}
+
+.card-sand.card-sand--pull {
+  overflow: hidden;
+}
+
+/* ——— Левая колонка ——— */
+.dreams-pull {
+  padding: 56px 16px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-height: 720px;
+}
+
+.dreams-pull__message {
+  text-align: center;
+  min-height: 7.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.dreams-pull__intro-text {
+  margin: 0;
+  font-family: "Daneehand", "Caveat", cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-size: clamp(1.25rem, 3.5vw, 32px);
+  line-height: 1.2;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-bg);
+  max-width: 28em;
+}
+
+.dreams-pull__message.is-dream-visible .dreams-pull__intro-text {
+  display: none;
+}
+
+.dreams-pull__dream-pic {
+  display: none;
+  width: min(100%, 320px);
+  margin: 0 auto;
+}
+
+.dreams-pull__message.is-dream-visible .dreams-pull__dream-pic {
+  display: block;
+}
+
+.dreams-pull__dream-pic img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.dreams-pull__fan {
+  position: relative;
+  flex: 1;
+  min-height: 280px;
+  max-height: 380px;
+  margin-top: 24px;
+  padding: 0 clamp(4px, 2%, 12px) 16px;
+  perspective: 1400px;
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.dreams-pull__card {
+  position: absolute;
+  bottom: 0;
+  width: 50%;
+  max-width: 200px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transform-origin: 50% 100%;
+  transition:
+    left 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+    right 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.35s ease,
+    z-index 0s linear 0s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.dreams-pull__card:focus-visible {
+  outline: 3px solid var(--color-bg);
+  outline-offset: 4px;
+}
+
+.dreams-pull__card[data-card="0"] {
+  left: 50%;
+  transform: translateX(-115%) rotate(-9deg);
+  z-index: 1;
+}
+
+.dreams-pull__card[data-card="1"] {
+  left: 50%;
+  transform: translateX(-50%) rotate(0deg);
+  z-index: 1;
+}
+
+.dreams-pull__card[data-card="2"] {
+  left: 50%;
+  transform: translateX(15%) rotate(9deg);
+  z-index: 1;
+}
+
+/* В обычном веере средняя карточка чуть выше по слою */
+.dreams-pull:not(.dreams-pull--active-0):not(.dreams-pull--active-1):not(.dreams-pull--active-2)
+  .dreams-pull__card[data-card="1"] {
+  z-index: 2;
+}
+
+.dreams-pull__flip {
+  position: relative;
+  display: block;
+  width: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center center;
+}
+
+.dreams-pull__side {
+  position: relative;
+  display: block;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.dreams-pull__side--front img {
+  width: 100%;
+  height: auto;
+  display: block;
+  vertical-align: top;
+}
+
+.dreams-pull__side--back {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  min-height: 100%;
+  transform: rotateY(180deg);
+  background: var(--color-bg);
+  color: var(--color-sand);
+  padding: 16px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.dreams-pull__back-text {
+  font-family: "Montserrat", system-ui, sans-serif;
+  font-size: clamp(0.75rem, 2.2vw, 13px);
+  font-weight: 500;
+  line-height: 1.35;
+  text-align: center;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+.dreams-pull--active-0 .dreams-pull__card[data-card="0"] .dreams-pull__flip,
+.dreams-pull--active-1 .dreams-pull__card[data-card="1"] .dreams-pull__flip,
+.dreams-pull--active-2 .dreams-pull__card[data-card="2"] .dreams-pull__flip {
+  transform: rotateY(180deg);
+}
+
+.dreams-pull--active-0 .dreams-pull__card[data-card="0"] {
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%) rotate(0deg) scale(1);
+  z-index: 20;
+}
+
+.dreams-pull--active-0 .dreams-pull__card[data-card="1"] {
+  left: 50%;
+  transform: translateX(-165%) rotate(-11deg) scale(0.88);
+  opacity: 0.88;
+  z-index: 0;
+}
+
+.dreams-pull--active-0 .dreams-pull__card[data-card="2"] {
+  left: 50%;
+  transform: translateX(65%) rotate(11deg) scale(0.88);
+  opacity: 0.88;
+  z-index: 0;
+}
+
+.dreams-pull--active-1 .dreams-pull__card[data-card="1"] {
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%) rotate(0deg) scale(1);
+  z-index: 20;
+}
+
+.dreams-pull--active-1 .dreams-pull__card[data-card="0"] {
+  left: 50%;
+  transform: translateX(-165%) rotate(-11deg) scale(0.88);
+  opacity: 0.88;
+  z-index: 0;
+}
+
+.dreams-pull--active-1 .dreams-pull__card[data-card="2"] {
+  left: 50%;
+  transform: translateX(65%) rotate(11deg) scale(0.88);
+  opacity: 0.88;
+  z-index: 0;
+}
+
+.dreams-pull--active-2 .dreams-pull__card[data-card="2"] {
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%) rotate(0deg) scale(1);
+  z-index: 20;
+}
+
+.dreams-pull--active-2 .dreams-pull__card[data-card="0"] {
+  left: 50%;
+  transform: translateX(-165%) rotate(-11deg) scale(0.88);
+  opacity: 0.88;
+  z-index: 0;
+}
+
+.dreams-pull--active-2 .dreams-pull__card[data-card="1"] {
+  left: 50%;
+  transform: translateX(-50%) translateY(6px) rotate(-6deg) scale(0.88);
+  opacity: 0.88;
+  z-index: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dreams-pull__card,
+  .dreams-pull__flip {
+    transition-duration: 0.01ms;
+  }
+}
+
+/* ——— Правая колонка ——— */
+.dreams-magic {
+  position: relative;
+  min-height: 720px;
+  padding: 56px 16px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dreams-magic__stage {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  min-height: 480px;
+  margin-top: 8px;
+}
+
+.dreams-magic__stars-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.dreams-magic__wand {
+  position: absolute;
+  right: -4%;
+  top: 38%;
+  width: min(32%, 140px);
+  height: auto;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.dreams-magic__hat-wrap {
+  position: relative;
+  width: min(78%, 300px);
+  margin: 0 auto;
+  z-index: 2;
+}
+
+.dreams-magic__hat {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 12px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.dreams-magic__hat img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.dreams-magic__hat:focus-visible {
+  outline: 3px solid var(--color-bg);
+  outline-offset: 6px;
+}
+
+.dreams-magic__star-particle {
+  position: absolute;
+  width: 28px;
+  height: auto;
+  margin-left: -14px;
+  margin-top: -14px;
+  pointer-events: none;
+}
+
+@media (max-width: 991px) {
+  .dreams-magic__wand {
+    right: 0;
+    width: min(28%, 100px);
+  }
+}
+
+/* Шляпа: смена темы и «пустота» */
+html.magic-theme {
+  --color-bg: #1e1a2e;
+  --color-sand: #e8dcc8;
+  --color-sand-border: #5c4d6e;
+}
+
+html.magic-void .page {
+  position: relative;
+  z-index: 2;
+}
+
+html.magic-void .section-stack > *:not(.row--dreams) {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.55s ease,
+    visibility 0.55s ease;
+}
+
+html.magic-void [data-dream-column="pull"] {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none;
+}
+
+html.magic-void [data-dream-column="magic"] {
+  opacity: 1 !important;
+  visibility: visible !important;
+  flex: 0 0 100% !important;
+  max-width: 100% !important;
+}
+
+html.magic-void .card-sand--magic {
+  position: relative;
+  z-index: 30;
+}
+
+html.magic-void body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 85% 55% at 50% 42%, rgba(163, 81, 155, 0.18) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 45% at 72% 68%, rgba(230, 217, 195, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 25% 30%, rgba(90, 70, 120, 0.12) 0%, transparent 40%);
+  animation: magic-void-pulse 9s ease-in-out infinite alternate;
+}
+
+@keyframes magic-void-pulse {
+  from {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0.95;
+    transform: scale(1.06);
+  }
+}
+
+html.magic-void .dreams-magic__stage::before {
+  content: "";
+  position: absolute;
+  inset: -12%;
+  border-radius: 50%;
+  border: 1px solid rgba(230, 217, 195, 0.08);
+  animation: magic-ring-spin 22s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes magic-ring-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.magic-void body::after {
+    animation: none;
+    opacity: 0.75;
+  }
+
+  html.magic-void .dreams-magic__stage::before {
+    animation: none;
+  }
+}

@@ -1,0 +1,261 @@
+:root {
+  --color-bg: #121212;
+  --color-sand: #e6d9c3;
+  --color-sand-border: #e3d8c4;
+  --radius-card: 28px;
+  --radius-card-lg: 36px;
+  --radius-pill: 999px;
+  --section-gap: 20px;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --radius-card: 42px;
+    --radius-card-lg: 42px;
+  }
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Montserrat", system-ui, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-sand);
+}
+
+.page {
+  padding-top: 24px;
+  padding-bottom: 40px;
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding-top: 32px;
+  }
+}
+
+@media (min-width: 992px) {
+  .page {
+    padding-top: 40px;
+  }
+}
+
+/* Карточки */
+.card-dark {
+  border: 1px solid var(--color-sand-border);
+  border-radius: var(--radius-card);
+  background-color: var(--color-bg);
+  min-height: 800px;
+  position: relative;
+  padding: 20px;
+}
+
+@media (min-width: 768px) {
+  .card-dark {
+    border-radius: var(--radius-card-lg);
+    padding: 24px;
+  }
+}
+
+.card-dark--hero {
+  min-height: 800px;
+}
+
+.card-dark.card-dark--dreams {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  border-radius: var(--radius-card-lg);
+  overflow: hidden;
+}
+
+.card-dark.card-dark--dreams .label-corner {
+  top: 12px;
+  right: 16px;
+  z-index: 6;
+}
+
+.card-sand {
+  background-color: var(--color-sand);
+  color: var(--color-bg);
+  border-radius: var(--radius-card);
+  min-height: 800px;
+  position: relative;
+  padding: 20px;
+}
+
+@media (min-width: 768px) {
+  .card-sand {
+    border-radius: var(--radius-card-lg);
+    padding: 24px;
+  }
+}
+
+.label-corner {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  font-family: "Caveat", cursive;
+  font-size: 1.25rem;
+  line-height: 1.2;
+  font-style: normal;
+}
+
+@media (min-width: 768px) {
+  .label-corner {
+    font-size: 1.5rem;
+    top: 20px;
+    right: 24px;
+  }
+}
+
+.card-dark .label-corner {
+  color: var(--color-sand);
+}
+
+.card-sand .label-corner {
+  color: var(--color-bg);
+}
+
+/* Логотип ДЕЛО */
+.logo-delo {
+  display: block;
+  width: min(100%, 900px);
+  height: auto;
+}
+
+.logo-delo__img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Бегущая строка */
+.marquee {
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-sand);
+  color: var(--color-bg);
+  min-height: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.marquee__segment {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+.marquee__track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 120s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track {
+    animation: none;
+  }
+}
+
+.marquee__text {
+  font-family: "PT Sans", sans-serif;
+  font-style: italic;
+  font-size: clamp(1.25rem, 8vw, 64px);
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
+  padding-right: 4rem;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.section-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--section-gap);
+}
+
+/* Футер */
+.footer {
+  background-color: var(--color-sand);
+  color: var(--color-bg);
+  border-radius: var(--radius-card);
+  padding: 24px 20px;
+}
+
+@media (min-width: 768px) {
+  .footer {
+    border-radius: var(--radius-card-lg);
+    padding: 28px 28px;
+  }
+}
+
+.footer__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+}
+
+@media (min-width: 992px) {
+  .footer__inner {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+  }
+}
+
+.footer__meta {
+  font-family: "PT Sans", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+  font-size: clamp(1.25rem, 4.5vw, 32px);
+  line-height: 100%;
+  letter-spacing: 0;
+}
+
+.footer__meta > div + div {
+  margin-top: 0.35em;
+}
+
+.footer__logo-wrap {
+  flex-shrink: 0;
+}
+
+.footer__logo {
+  display: block;
+  width: min(100%, 257px);
+  height: auto;
+}
+
+@media (min-width: 992px) {
+  .footer__logo {
+    width: 257px;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

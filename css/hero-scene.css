@@ -1,0 +1,205 @@
+.card-dark.card-dark--hero {
+  padding: 0;
+  overflow: hidden;
+  display: block;
+}
+
+.hero-scene {
+  position: relative;
+  width: 100%;
+  min-height: 800px;
+  isolation: isolate;
+}
+
+.hero-scene__layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hero-scene__layer--back {
+  z-index: 1;
+}
+
+.hero-scene__layer--clouds {
+  z-index: 2;
+}
+
+.hero-scene__layer--moon {
+  z-index: 3;
+}
+
+.hero-scene__layer--planes {
+  z-index: 4;
+}
+
+.hero-scene__stars {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.hero-scene__star {
+  position: absolute;
+  width: 12px;
+  height: auto;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+}
+
+.hero-scene__moon {
+  position: absolute;
+  top: 6%;
+  left: 8%;
+  width: clamp(36px, 5vw, 52px);
+  height: auto;
+  pointer-events: auto;
+}
+
+.hero-scene__cloud-wrap {
+  position: absolute;
+  pointer-events: auto;
+  touch-action: none;
+  z-index: 2;
+}
+
+.hero-scene__cloud-wrap.is-dragging {
+  z-index: 8;
+  cursor: grabbing;
+}
+
+.hero-scene__cloud {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: auto;
+}
+
+.hero-scene__cloud-wrap--1 {
+  top: -2%;
+  left: -6%;
+  width: min(38%, 280px);
+  max-width: 42%;
+}
+
+.hero-scene__cloud-wrap--2 {
+  top: 4%;
+  right: -4%;
+  width: min(32%, 220px);
+  max-width: 42%;
+}
+
+.hero-scene__cloud-wrap--3 {
+  top: 38%;
+  left: -8%;
+  width: min(30%, 200px);
+  max-width: 42%;
+}
+
+.hero-scene__cloud-wrap--4 {
+  bottom: 18%;
+  right: 2%;
+  width: min(22%, 140px);
+  max-width: 42%;
+}
+
+.hero-scene__cloud-wrap--5 {
+  bottom: -4%;
+  left: 12%;
+  width: min(48%, 320px);
+  max-width: 42%;
+}
+
+.hero-scene__cloud-wrap--6 {
+  bottom: 8%;
+  right: -6%;
+  width: min(24%, 150px);
+  max-width: 42%;
+}
+
+.hero-scene__plane {
+  position: absolute;
+  height: auto;
+  pointer-events: auto;
+}
+
+.hero-scene__plane--red {
+  top: 10%;
+  right: 6%;
+  width: min(22%, 120px);
+}
+
+.hero-scene__plane--blue {
+  bottom: 14%;
+  left: 8%;
+  width: min(18%, 100px);
+}
+
+.hero-scene__logo {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 800px;
+  padding: 48px 24px 56px;
+  pointer-events: none;
+}
+
+.hero-scene__logo .logo-delo {
+  width: min(100%, 380px);
+  max-width: 55vw;
+  margin: 0 auto;
+}
+
+.hero-scene__logo .logo-delo__img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 4px 24px rgba(0, 0, 0, 0.35));
+}
+.hero-scene__el {
+  cursor: pointer;
+  transition: filter 0.28s ease;
+}
+
+.hero-scene__cloud-wrap {
+  cursor: grab;
+}
+
+.hero-scene__el:hover,
+.hero-scene__el:focus-visible {
+  filter: brightness(0) invert(1);
+  outline: none;
+}
+
+.hero-scene__el:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-sand, #e6d9c3);
+}
+
+@media (max-width: 767px) {
+  .hero-scene__cloud-wrap--1,
+  .hero-scene__cloud-wrap--5 {
+    max-width: 55%;
+  }
+
+  .hero-scene__plane--red {
+    width: min(28%, 100px);
+    top: 8%;
+  }
+
+  .hero-scene__plane--blue {
+    width: min(26%, 88px);
+  }
+
+  .hero-scene__logo .logo-delo {
+    max-width: 72vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-scene__el {
+    transition: filter 0.2s ease;
+  }
+}

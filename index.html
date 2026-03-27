@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Дело — мечты</title>
+    <link rel="stylesheet" href="css/preloader.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Montserrat:wght@400;500;600&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/grid.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/hero-scene.css" />
+    <link rel="stylesheet" href="css/dream-scene.css" />
+    <link rel="stylesheet" href="css/dreams-columns.css" />
+    <link rel="stylesheet" href="css/live-stars.css" />
+  </head>
+  <body>
+    <div id="preloader">
+      <canvas id="pl-canvas"></canvas>
+      <div id="curtain-top" class="preloader-curtain preloader-curtain--top" aria-hidden="true"></div>
+      <div id="curtain-bottom" class="preloader-curtain preloader-curtain--bottom" aria-hidden="true"></div>
+      <svg id="pl-path-svg" aria-hidden="true">
+        <path id="pl-path" />
+      </svg>
+      <div id="pl-plane-wrap">
+        <div id="pl-plane-tilt">
+          <img id="pl-plane" src="img/airplane-loader.svg" width="88" height="67" alt="" />
+        </div>
+      </div>
+    </div>
+    <div class="page">
+      <div class="container">
+        <div class="section-stack">
+          <header class="card-dark card-dark--hero" aria-labelledby="logo-title">
+            <div class="hero-scene" id="hero-scene">
+              <div class="hero-scene__layer hero-scene__layer--back" aria-hidden="true">
+                <div class="hero-scene__stars" id="hero-stars"></div>
+              </div>
+              <div class="hero-scene__layer hero-scene__layer--clouds" aria-hidden="true">
+                <div class="hero-scene__cloud-wrap hero-scene__cloud-wrap--1">
+                  <img
+                    class="hero-scene__cloud hero-scene__el"
+                    src="img/first-banner/1-cloud.svg"
+                    alt=""
+                  />
+                </div>
+                <div class="hero-scene__cloud-wrap hero-scene__cloud-wrap--2">
+                  <img
+                    class="hero-scene__cloud hero-scene__el"
+                    src="img/first-banner/2-cloud.svg"
+                    alt=""
+                  />
+                </div>
+                <div class="hero-scene__cloud-wrap hero-scene__cloud-wrap--3">
+                  <img
+                    class="hero-scene__cloud hero-scene__el"
+                    src="img/first-banner/3-cloud.svg"
+                    alt=""
+                  />
+                </div>
+                <div class="hero-scene__cloud-wrap hero-scene__cloud-wrap--4">
+                  <img
+                    class="hero-scene__cloud hero-scene__el"
+                    src="img/first-banner/4-cloud.svg"
+                    alt=""
+                  />
+                </div>
+                <div class="hero-scene__cloud-wrap hero-scene__cloud-wrap--5">
+                  <img
+                    class="hero-scene__cloud hero-scene__el"
+                    src="img/first-banner/5-cloud.svg"
+                    alt=""
+                  />
+                </div>
+                <div class="hero-scene__cloud-wrap hero-scene__cloud-wrap--6">
+                  <img
+                    class="hero-scene__cloud hero-scene__el"
+                    src="img/first-banner/6-cloud.svg"
+                    alt=""
+                  />
+                </div>
+              </div>
+              <div class="hero-scene__layer hero-scene__layer--moon" aria-hidden="true">
+                <img
+                  class="hero-scene__moon hero-scene__el"
+                  src="img/first-banner/moon.svg"
+                  alt=""
+                />
+              </div>
+              <div class="hero-scene__layer hero-scene__layer--planes" aria-hidden="true">
+                <img
+                  class="hero-scene__plane hero-scene__plane--red hero-scene__el"
+                  src="img/first-banner/airplane-red.svg"
+                  alt=""
+                />
+                <img
+                  class="hero-scene__plane hero-scene__plane--blue hero-scene__el"
+                  src="img/first-banner/airplane-blue.svg"
+                  alt=""
+                />
+              </div>
+              <div class="hero-scene__logo">
+                <h1 id="logo-title" class="visually-hidden">Дело</h1>
+                <div class="logo-delo">
+                  <img
+                    class="logo-delo__img"
+                    src="img/main-logo.svg"
+                    alt="Дело"
+                  />
+                </div>
+              </div>
+            </div>
+          </header>
+
+          <section class="marquee" aria-label="Бегущая строка: давай мечтать">
+            <div class="marquee__track" data-marquee-track>
+              <div data-marquee-segment class="marquee__segment">
+                <span class="marquee__text"
+                  >ДАВАЙ МЕЧТАТЬ &nbsp;•&nbsp; ДАВАЙ МЕЧТАТЬ &nbsp;•&nbsp; ДАВАЙ МЕЧТАТЬ &nbsp;•&nbsp; ДАВАЙ МЕЧТАТЬ &nbsp;•&nbsp;
+                  ДАВАЙ МЕЧТАТЬ &nbsp;•&nbsp; ДАВАЙ МЕЧТАТЬ &nbsp;•&nbsp; ДАВАЙ МЕЧТАТЬ &nbsp;•&nbsp; ДАВАЙ МЕЧТАТЬ &nbsp;•&nbsp;
+                  ДАВАЙ МЕЧТАТЬ &nbsp;•&nbsp; ДАВАЙ МЕЧТАТЬ &nbsp;•&nbsp; ДАВАЙ МЕЧТАТЬ &nbsp;•&nbsp; ДАВАЙ МЕЧТАТЬ &nbsp;•&nbsp;
+                  ДАВАЙ МЕЧТАТЬ &nbsp;•&nbsp; ДАВАЙ МЕЧТАТЬ &nbsp;•&nbsp; ДАВАЙ МЕЧТАТЬ &nbsp;•&nbsp; ДАВАЙ МЕЧТАТЬ &nbsp;•&nbsp;
+                  ДАВАЙ МЕЧТАТЬ &nbsp;•&nbsp; ДАВАЙ МЕЧТАТЬ &nbsp;•&nbsp; ДАВАЙ МЕЧТАТЬ &nbsp;•&nbsp; ДАВАЙ МЕЧТАТЬ &nbsp;•&nbsp;</span
+                >
+              </div>
+            </div>
+          </section>
+
+          <section class="card-dark card-dark--dreams" aria-labelledby="label-choose">
+            <p id="label-choose" class="label-corner">Выбери мечту</p>
+            <div class="dream-scene" data-dream-scene>
+              <div class="dream-lines">
+                <div class="dream-line-marquee">
+                  <div class="dream-line-marquee__track" data-marquee-track style="--dream-line-duration: 185s">
+                    <div data-marquee-segment class="dream-line-marquee__segment">
+                      <span class="dream-line-marquee__text"
+                        >МОЙ ПАПА ГОВОРИТ ЧТО ПОЖАРНЫЕ САМЫЕ СМЕЛЫЕ И Я ХОЧУ ТОЖЕ &nbsp;•&nbsp; МОЙ ПАПА ГОВОРИТ ЧТО ПОЖАРНЫЕ САМЫЕ СМЕЛЫЕ И Я ХОЧУ ТОЖЕ &nbsp;•&nbsp; МОЙ ПАПА ГОВОРИТ ЧТО ПОЖАРНЫЕ САМЫЕ СМЕЛЫЕ И Я ХОЧУ ТОЖЕ &nbsp;•&nbsp; МОЙ ПАПА ГОВОРИТ ЧТО ПОЖАРНЫЕ САМЫЕ СМЕЛЫЕ И Я ХОЧУ ТОЖЕ &nbsp;•&nbsp; МОЙ ПАПА ГОВОРИТ ЧТО ПОЖАРНЫЕ САМЫЕ СМЕЛЫЕ И Я ХОЧУ ТОЖЕ</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="dream-line-marquee">
+                  <div class="dream-line-marquee__track" data-marquee-track style="--dream-line-duration: 195s">
+                    <div data-marquee-segment class="dream-line-marquee__segment">
+                      <span class="dream-line-marquee__text"
+                        >Я ТОЧНО ЗНАЮ, ЧТО
+                        <button
+                          type="button"
+                          class="dream-keyword"
+                          data-dream="cosmonaut"
+                          style="--pulse-delay: 0.3s"
+                          aria-label="Космонавты"
+                        >
+                          КОСМОНАВТЫ
+                        </button>
+                        ЕДЯТ СУП ИЗ ТЮБИКА И ЭТО КРУТО &nbsp;•&nbsp; Я ТОЧНО ЗНАЮ, ЧТО
+                        <button
+                          type="button"
+                          class="dream-keyword"
+                          data-dream="cosmonaut"
+                          style="--pulse-delay: 0.3s"
+                          aria-label="Космонавты"
+                        >
+                          КОСМОНАВТЫ
+                        </button>
+                        ЕДЯТ СУП ИЗ ТЮБИКА И ЭТО КРУТО &nbsp;•&nbsp; Я ТОЧНО ЗНАЮ, ЧТО
+                        <button
+                          type="button"
+                          class="dream-keyword"
+                          data-dream="cosmonaut"
+                          style="--pulse-delay: 0.3s"
+                          aria-label="Космонавты"
+                        >
+                          КОСМОНАВТЫ
+                        </button>
+                        ЕДЯТ СУП ИЗ ТЮБИКА И ЭТО КРУТО &nbsp;•&nbsp; Я ТОЧНО ЗНАЮ, ЧТО
+                        <button
+                          type="button"
+                          class="dream-keyword"
+                          data-dream="cosmonaut"
+                          style="--pulse-delay: 0.3s"
+                          aria-label="Космонавты"
+                        >
+                          КОСМОНАВТЫ
+                        </button>
+                        ЕДЯТ СУП ИЗ ТЮБИКА И ЭТО КРУТО &nbsp;•&nbsp; Я ТОЧНО ЗНАЮ, ЧТО
+                        <button
+                          type="button"
+                          class="dream-keyword"
+                          data-dream="cosmonaut"
+                          style="--pulse-delay: 0.3s"
+                          aria-label="Космонавты"
+                        >
+                          КОСМОНАВТЫ
+                        </button>
+                        ЕДЯТ СУП ИЗ ТЮБИКА И ЭТО КРУТО</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="dream-line-marquee">
+                  <div class="dream-line-marquee__track" data-marquee-track style="--dream-line-duration: 200s">
+                    <div data-marquee-segment class="dream-line-marquee__segment">
+                      <span class="dream-line-marquee__text"
+                        >ФОКУСНИКИ УМЕЮТ ДЕЛАТЬ ВСЁ ЧТО ХОТЯТ - Я ПРОВЕРЯЛ &nbsp;•&nbsp; ФОКУСНИКИ УМЕЮТ ДЕЛАТЬ ВСЁ ЧТО ХОТЯТ - Я ПРОВЕРЯЛ &nbsp;•&nbsp; ФОКУСНИКИ УМЕЮТ ДЕЛАТЬ ВСЁ ЧТО ХОТЯТ - Я ПРОВЕРЯЛ &nbsp;•&nbsp; ФОКУСНИКИ УМЕЮТ ДЕЛАТЬ ВСЁ ЧТО ХОТЯТ - Я ПРОВЕРЯЛ &nbsp;•&nbsp; ФОКУСНИКИ УМЕЮТ ДЕЛАТЬ ВСЁ ЧТО ХОТЯТ - Я ПРОВЕРЯЛ</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="dream-line-marquee">
+                  <div class="dream-line-marquee__track" data-marquee-track style="--dream-line-duration: 188s">
+                    <div data-marquee-segment class="dream-line-marquee__segment">
+                      <span class="dream-line-marquee__text"
+                        >Я НАШЛА БЫ САМОГО КРАСИВОГО ДИНОЗАВРА И ОН БЫ СО МНОЙ ДРУЖИЛ &nbsp;•&nbsp; Я НАШЛА БЫ САМОГО КРАСИВОГО ДИНОЗАВРА И ОН БЫ СО МНОЙ ДРУЖИЛ &nbsp;•&nbsp; Я НАШЛА БЫ САМОГО КРАСИВОГО ДИНОЗАВРА И ОН БЫ СО МНОЙ ДРУЖИЛ &nbsp;•&nbsp; Я НАШЛА БЫ САМОГО КРАСИВОГО ДИНОЗАВРА И ОН БЫ СО МНОЙ ДРУЖИЛ &nbsp;•&nbsp; Я НАШЛА БЫ САМОГО КРАСИВОГО ДИНОЗАВРА И ОН БЫ СО МНОЙ ДРУЖИЛ</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="dream-line-marquee">
+                  <div class="dream-line-marquee__track" data-marquee-track style="--dream-line-duration: 205s">
+                    <div data-marquee-segment class="dream-line-marquee__segment">
+                      <span class="dream-line-marquee__text"
+                        >КОГДА Я СТАНУ
+                        <button
+                          type="button"
+                          class="dream-keyword"
+                          data-dream="ballerina"
+                          style="--pulse-delay: 1.1s"
+                          aria-label="Балериной"
+                        >
+                          БАЛЕРИНОЙ
+                        </button>
+                        ПЛАТЬЕ БУДЕТ РОЗОВОЕ И ОЧЕНЬ ПЫШНОЕ &nbsp;•&nbsp; КОГДА Я СТАНУ
+                        <button
+                          type="button"
+                          class="dream-keyword"
+                          data-dream="ballerina"
+                          style="--pulse-delay: 1.1s"
+                          aria-label="Балериной"
+                        >
+                          БАЛЕРИНОЙ
+                        </button>
+                        ПЛАТЬЕ БУДЕТ РОЗОВОЕ И ОЧЕНЬ ПЫШНОЕ &nbsp;•&nbsp; КОГДА Я СТАНУ
+                        <button
+                          type="button"
+                          class="dream-keyword"
+                          data-dream="ballerina"
+                          style="--pulse-delay: 1.1s"
+                          aria-label="Балериной"
+                        >
+                          БАЛЕРИНОЙ
+                        </button>
+                        ПЛАТЬЕ БУДЕТ РОЗОВОЕ И ОЧЕНЬ ПЫШНОЕ &nbsp;•&nbsp; КОГДА Я СТАНУ
+                        <button
+                          type="button"
+                          class="dream-keyword"
+                          data-dream="ballerina"
+                          style="--pulse-delay: 1.1s"
+                          aria-label="Балериной"
+                        >
+                          БАЛЕРИНОЙ
+                        </button>
+                        ПЛАТЬЕ БУДЕТ РОЗОВОЕ И ОЧЕНЬ ПЫШНОЕ &nbsp;•&nbsp; КОГДА Я СТАНУ
+                        <button
+                          type="button"
+                          class="dream-keyword"
+                          data-dream="ballerina"
+                          style="--pulse-delay: 1.1s"
+                          aria-label="Балериной"
+                        >
+                          БАЛЕРИНОЙ
+                        </button>
+                        ПЛАТЬЕ БУДЕТ РОЗОВОЕ И ОЧЕНЬ ПЫШНОЕ</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="dream-line-marquee">
+                  <div class="dream-line-marquee__track" data-marquee-track style="--dream-line-duration: 192s">
+                    <div data-marquee-segment class="dream-line-marquee__segment">
+                      <span class="dream-line-marquee__text"
+                        >У МЕНЯ УЖЕ ЕСТЬ КИСТОЧКИ-ЗНАЧИТ Я ПОЧТИ ХУДОЖНИК ПРОСТО ЕЩЁ НИКТО НЕ ЗНАЕТ &nbsp;•&nbsp; У МЕНЯ УЖЕ ЕСТЬ КИСТОЧКИ-ЗНАЧИТ Я ПОЧТИ ХУДОЖНИК ПРОСТО ЕЩЁ НИКТО НЕ ЗНАЕТ &nbsp;•&nbsp; У МЕНЯ УЖЕ ЕСТЬ КИСТОЧКИ-ЗНАЧИТ Я ПОЧТИ ХУДОЖНИК ПРОСТО ЕЩЁ НИКТО НЕ ЗНАЕТ &nbsp;•&nbsp; У МЕНЯ УЖЕ ЕСТЬ КИСТОЧКИ-ЗНАЧИТ Я ПОЧТИ ХУДОЖНИК ПРОСТО ЕЩЁ НИКТО НЕ ЗНАЕТ &nbsp;•&nbsp; У МЕНЯ УЖЕ ЕСТЬ КИСТОЧКИ-ЗНАЧИТ Я ПОЧТИ ХУДОЖНИК ПРОСТО ЕЩЁ НИКТО НЕ ЗНАЕТ</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="dream-line-marquee">
+                  <div class="dream-line-marquee__track" data-marquee-track style="--dream-line-duration: 198s">
+                    <div data-marquee-segment class="dream-line-marquee__segment">
+                      <span class="dream-line-marquee__text"
+                        >Я БУДУ САМЫМ БЫСТРЫМ
+                        <button
+                          type="button"
+                          class="dream-keyword"
+                          data-dream="football"
+                          style="--pulse-delay: 2.2s"
+                          aria-label="Футболистом"
+                        >
+                          ФУТБОЛИСТОМ
+                        </button>
+                        И ВСЕ БУДУТ ЗА МЕНЯ БОЛЕТЬ &nbsp;•&nbsp; Я БУДУ САМЫМ БЫСТРЫМ
+                        <button
+                          type="button"
+                          class="dream-keyword"
+                          data-dream="football"
+                          style="--pulse-delay: 2.2s"
+                          aria-label="Футболистом"
+                        >
+                          ФУТБОЛИСТОМ
+                        </button>
+                        И ВСЕ БУДУТ ЗА МЕНЯ БОЛЕТЬ &nbsp;•&nbsp; Я БУДУ САМЫМ БЫСТРЫМ
+                        <button
+                          type="button"
+                          class="dream-keyword"
+                          data-dream="football"
+                          style="--pulse-delay: 2.2s"
+                          aria-label="Футболистом"
+                        >
+                          ФУТБОЛИСТОМ
+                        </button>
+                        И ВСЕ БУДУТ ЗА МЕНЯ БОЛЕТЬ &nbsp;•&nbsp; Я БУДУ САМЫМ БЫСТРЫМ
+                        <button
+                          type="button"
+                          class="dream-keyword"
+                          data-dream="football"
+                          style="--pulse-delay: 2.2s"
+                          aria-label="Футболистом"
+                        >
+                          ФУТБОЛИСТОМ
+                        </button>
+                        И ВСЕ БУДУТ ЗА МЕНЯ БОЛЕТЬ &nbsp;•&nbsp; Я БУДУ САМЫМ БЫСТРЫМ
+                        <button
+                          type="button"
+                          class="dream-keyword"
+                          data-dream="football"
+                          style="--pulse-delay: 2.2s"
+                          aria-label="Футболистом"
+                        >
+                          ФУТБОЛИСТОМ
+                        </button>
+                        И ВСЕ БУДУТ ЗА МЕНЯ БОЛЕТЬ</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="dream-line-marquee">
+                  <div class="dream-line-marquee__track" data-marquee-track style="--dream-line-duration: 210s">
+                    <div data-marquee-segment class="dream-line-marquee__segment">
+                      <span class="dream-line-marquee__text"
+                        >НАСТОЯЩИЙ
+                        <button
+                          type="button"
+                          class="dream-keyword"
+                          data-dream="captain"
+                          style="--pulse-delay: 3.1s"
+                          aria-label="Капитан"
+                        >
+                          КАПИТАН
+                        </button>
+                        НЕ БОИТСЯ ВОЛН - МАМА ПРОСТО НЕ ЗНАЕТ &nbsp;•&nbsp; НАСТОЯЩИЙ
+                        <button
+                          type="button"
+                          class="dream-keyword"
+                          data-dream="captain"
+                          style="--pulse-delay: 3.1s"
+                          aria-label="Капитан"
+                        >
+                          КАПИТАН
+                        </button>
+                        НЕ БОИТСЯ ВОЛН - МАМА ПРОСТО НЕ ЗНАЕТ &nbsp;•&nbsp; НАСТОЯЩИЙ
+                        <button
+                          type="button"
+                          class="dream-keyword"
+                          data-dream="captain"
+                          style="--pulse-delay: 3.1s"
+                          aria-label="Капитан"
+                        >
+                          КАПИТАН
+                        </button>
+                        НЕ БОИТСЯ ВОЛН - МАМА ПРОСТО НЕ ЗНАЕТ &nbsp;•&nbsp; НАСТОЯЩИЙ
+                        <button
+                          type="button"
+                          class="dream-keyword"
+                          data-dream="captain"
+                          style="--pulse-delay: 3.1s"
+                          aria-label="Капитан"
+                        >
+                          КАПИТАН
+                        </button>
+                        НЕ БОИТСЯ ВОЛН - МАМА ПРОСТО НЕ ЗНАЕТ &nbsp;•&nbsp; НАСТОЯЩИЙ
+                        <button
+                          type="button"
+                          class="dream-keyword"
+                          data-dream="captain"
+                          style="--pulse-delay: 3.1s"
+                          aria-label="Капитан"
+                        >
+                          КАПИТАН
+                        </button>
+                        НЕ БОИТСЯ ВОЛН - МАМА ПРОСТО НЕ ЗНАЕТ</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="dream-line-marquee">
+                  <div class="dream-line-marquee__track" data-marquee-track style="--dream-line-duration: 190s">
+                    <div data-marquee-segment class="dream-line-marquee__segment">
+                      <span class="dream-line-marquee__text"
+                        >ВСЕ ЖИВОТНЫЕ СЛУШАЮТСЯ КОГДА ТЫ НАСТОЯЩИЙ ДРЕССИРОВЩИК ДАЖЕ ТИГРЫ И МЕДВЕДИ &nbsp;•&nbsp; ВСЕ ЖИВОТНЫЕ СЛУШАЮТСЯ КОГДА ТЫ НАСТОЯЩИЙ ДРЕССИРОВЩИК ДАЖЕ ТИГРЫ И МЕДВЕДИ &nbsp;•&nbsp; ВСЕ ЖИВОТНЫЕ СЛУШАЮТСЯ КОГДА ТЫ НАСТОЯЩИЙ ДРЕССИРОВЩИК ДАЖЕ ТИГРЫ И МЕДВЕДИ &nbsp;•&nbsp; ВСЕ ЖИВОТНЫЕ СЛУШАЮТСЯ КОГДА ТЫ НАСТОЯЩИЙ ДРЕССИРОВЩИК ДАЖЕ ТИГРЫ И МЕДВЕДИ &nbsp;•&nbsp; ВСЕ ЖИВОТНЫЕ СЛУШАЮТСЯ КОГДА ТЫ НАСТОЯЩИЙ ДРЕССИРОВЩИК ДАЖЕ ТИГРЫ И МЕДВЕДИ</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="dream-scene__illustrations" aria-hidden="true">
+                <img
+                  class="dream-preview-img"
+                  data-dream-preview="cosmonaut"
+                  src="img/second-banner/rocket.svg"
+                  alt=""
+                />
+                <img
+                  class="dream-preview-img"
+                  data-dream-preview="ballerina"
+                  src="img/second-banner/ballerina.svg"
+                  alt=""
+                />
+                <img
+                  class="dream-preview-img"
+                  data-dream-preview="football"
+                  src="img/second-banner/ball.svg"
+                  alt=""
+                />
+                <img
+                  class="dream-preview-img"
+                  data-dream-preview="captain"
+                  src="img/second-banner/ship.svg"
+                  alt=""
+                />
+              </div>
+            </div>
+          </section>
+
+          <section class="marquee" aria-label="Идеи мечтаний">
+            <div class="marquee__track" data-marquee-track>
+              <div data-marquee-segment class="marquee__segment">
+                <span class="marquee__text"
+                  >ОБЪЕЗДИТЬ ВЕСЬ МИР &nbsp;•&nbsp; СТАТЬ ВОЛШЕБНИКОМ &nbsp;•&nbsp; ПОСТРОИТЬ ЗАМОК &nbsp;•&nbsp; ПОЛЕТЕТЬ НА ЛУНУ &nbsp;•&nbsp;
+                  НАЙТИ СОКРОВИЩА &nbsp;•&nbsp; НАПИСАТЬ КНИГУ &nbsp;•&nbsp; ОТКРЫТЬ СВОЙ ДОМ &nbsp;•&nbsp; УЧИТЬСЯ ТАНЦЕВАТЬ &nbsp;•&nbsp;
+                  ОБЪЕЗДИТЬ ВЕСЬ МИР &nbsp;•&nbsp; СТАТЬ ВОЛШЕБНИКОМ &nbsp;•&nbsp; ПОСТРОИТЬ ЗАМОК &nbsp;•&nbsp; ПОЛЕТЕТЬ НА ЛУНУ &nbsp;•&nbsp;
+                  СОБРАТЬ ОРКЕСТР &nbsp;•&nbsp; СНИМАТЬ КИНО &nbsp;•&nbsp; РИСОВАТЬ КАЖДЫЙ ДЕНЬ &nbsp;•&nbsp; СПЕТЬ НА СЦЕНЕ &nbsp;•&nbsp;
+                  ОБЪЕЗДИТЬ ВЕСЬ МИР &nbsp;•&nbsp; СТАТЬ ВОЛШЕБНИКОМ &nbsp;•&nbsp; ПОСТРОИТЬ ЗАМОК &nbsp;•&nbsp; ПОЛЕТЕТЬ НА ЛУНУ &nbsp;•&nbsp;
+                  ПРОЙТИ ПО ГОРАМ &nbsp;•&nbsp; ВЫУЧИТЬ ЯЗЫКИ &nbsp;•&nbsp; СОЗДАТЬ СТАРТАП &nbsp;•&nbsp; ПОМОГАТЬ ЛЮДЯМ &nbsp;•&nbsp;</span
+                >
+              </div>
+            </div>
+          </section>
+
+          <div class="row row--dreams">
+            <div class="col-12 col-lg-6 order-2 order-lg-1" data-dream-column="pull">
+              <section class="card-sand card-sand--pull" aria-labelledby="label-pull">
+                <p id="label-pull" class="label-corner">Вытяни мечту</p>
+                <div class="dreams-pull" data-dreams-pull>
+                  <div class="dreams-pull__message" data-pull-message>
+                    <p class="dreams-pull__intro-text" data-pull-intro>
+                      Каждая карточка чья-то настоящая мечта. А какая твоя?
+                    </p>
+                    <div class="dreams-pull__dream-pic" data-pull-dream>
+                      <img data-pull-dream-img src="" alt="" />
+                    </div>
+                  </div>
+                  <div class="dreams-pull__fan">
+                    <button
+                      type="button"
+                      class="dreams-pull__card"
+                      data-card="0"
+                      aria-pressed="false"
+                      aria-label="Первая карточка мечты"
+                    >
+                      <span class="dreams-pull__flip">
+                        <span class="dreams-pull__side dreams-pull__side--front">
+                          <img src="img/dreams-column-left/first-card.svg" alt="" />
+                        </span>
+                        <span class="dreams-pull__side dreams-pull__side--back">
+                          <span class="dreams-pull__back-text" data-pull-back-text></span>
+                        </span>
+                      </span>
+                    </button>
+                    <button
+                      type="button"
+                      class="dreams-pull__card"
+                      data-card="1"
+                      aria-pressed="false"
+                      aria-label="Вторая карточка мечты"
+                    >
+                      <span class="dreams-pull__flip">
+                        <span class="dreams-pull__side dreams-pull__side--front">
+                          <img src="img/dreams-column-left/second-card.svg" alt="" />
+                        </span>
+                        <span class="dreams-pull__side dreams-pull__side--back">
+                          <span class="dreams-pull__back-text" data-pull-back-text></span>
+                        </span>
+                      </span>
+                    </button>
+                    <button
+                      type="button"
+                      class="dreams-pull__card"
+                      data-card="2"
+                      aria-pressed="false"
+                      aria-label="Третья карточка мечты"
+                    >
+                      <span class="dreams-pull__flip">
+                        <span class="dreams-pull__side dreams-pull__side--front">
+                          <img src="img/dreams-column-left/third-card.svg" alt="" />
+                        </span>
+                        <span class="dreams-pull__side dreams-pull__side--back">
+                          <span class="dreams-pull__back-text" data-pull-back-text></span>
+                        </span>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </section>
+            </div>
+            <div class="col-12 col-lg-6 order-1 order-lg-2" data-dream-column="magic">
+              <section class="card-sand card-sand--magic" aria-labelledby="label-magic">
+                <p id="label-magic" class="label-corner">Магия мечты</p>
+                <div class="dreams-magic" data-dreams-magic>
+                  <div class="dreams-magic__stage">
+                    <div class="dreams-magic__stars-layer" data-magic-stars-layer aria-hidden="true"></div>
+                    <img
+                      class="dreams-magic__wand"
+                      src="img/dreams-column-right/stick.svg"
+                      alt=""
+                    />
+                    <div class="dreams-magic__hat-wrap">
+                      <button type="button" class="dreams-magic__hat" aria-label="Шляпа фокусника">
+                        <img src="img/dreams-column-right/hat.svg" alt="" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+
+          <section class="marquee" aria-label="Напоминание о мечтах">
+            <div class="marquee__track" data-marquee-track>
+              <div data-marquee-segment class="marquee__segment">
+                <span class="marquee__text"
+                  >ПОМНИТЬ КЕМ ХОТЕЛ СТАТЬ &nbsp;•&nbsp; СНОВА БЫТЬ СОБОЙ &nbsp;•&nbsp; НЕ БОЯТЬСЯ МЕЧТАТЬ &nbsp;•&nbsp; ИДТИ К ЦЕЛИ &nbsp;•&nbsp;
+                  ПОМНИТЬ КЕМ ХОТЕЛ СТАТЬ &nbsp;•&nbsp; СНОВА БЫТЬ СОБОЙ &nbsp;•&nbsp; ВЕРИТЬ В ЧУДО &nbsp;•&nbsp; СЛУШАТЬ СЕРДЦЕ &nbsp;•&nbsp;
+                  ПОМНИТЬ КЕМ ХОТЕЛ СТАТЬ &nbsp;•&nbsp; СНОВА БЫТЬ СОБОЙ &nbsp;•&nbsp; ДАРИТЬ ТЕПЛО &nbsp;•&nbsp; СОХРАНЯТЬ ЛЁГКОСТЬ &nbsp;•&nbsp;
+                  ПОМНИТЬ КЕМ ХОТЕЛ СТАТЬ &nbsp;•&nbsp; СНОВА БЫТЬ СОБОЙ &nbsp;•&nbsp; НЕ СДАВАТЬСЯ &nbsp;•&nbsp; ЛЮБИТЬ ЖИЗНЬ &nbsp;•&nbsp;
+                  ПОМНИТЬ КЕМ ХОТЕЛ СТАТЬ &nbsp;•&nbsp; СНОВА БЫТЬ СОБОЙ &nbsp;•&nbsp; ОТКРЫВАТЬ НОВОЕ &nbsp;•&nbsp; ДЫШАТЬ ГЛУБЖЕ &nbsp;•&nbsp;</span
+                >
+              </div>
+            </div>
+          </section>
+
+          <section class="card-dark card-dark--live" aria-labelledby="label-live">
+            <p id="label-live" class="label-corner">Здесь живут мечты</p>
+            <div class="live-stars" id="live-stars">
+              <div class="live-stars__track" data-marquee-track>
+                <div class="live-stars__segment" data-marquee-segment></div>
+              </div>
+              <div class="live-stars__toast" id="live-stars-toast" role="status" aria-live="polite" hidden>
+                <p class="live-stars__toast-text"></p>
+              </div>
+            </div>
+          </section>
+
+          <footer class="footer">
+            <div class="footer__inner">
+              <div class="footer__meta">
+                <div>БП23Д307</div>
+                <div>Дулина Юлия</div>
+              </div>
+              <div class="footer__logo-wrap">
+                <img
+                  class="footer__logo"
+                  src="img/footer-logo.svg"
+                  width="257"
+                  height="109"
+                  alt="HSE Art and Design School"
+                />
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
+    <script src="js/preloader.js"></script>
+    <script src="js/hero-scene.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/dream-scene.js"></script>
+    <script src="js/dreams-columns.js"></script>
+    <script src="js/live-stars.js"></script>
+  </body>
+</html>
