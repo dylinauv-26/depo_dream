@@ -50,7 +50,6 @@ const createStarEl = (i, leftPct, topPct, sizePx) => {
   btn.style.width = `${sizePx}px`;
   btn.style.left = `${leftPct}%`;
   btn.style.top = `${topPct}%`;
-
   btn.appendChild(img);
   return btn;
 };
@@ -93,18 +92,18 @@ const syncClone = (root) => {
 };
 
 const runStarPulse = (root) => {
-  const g = typeof window !== 'undefined' ? window.gsap : null;
-  if (reduceMotion() || !g) return;
-
+  if (reduceMotion()) return;
   root.querySelectorAll('.live-stars__star').forEach((el) => {
-    g.to(el, {
-      opacity: 0.45,
-      duration: 0.6 + Math.random() * 0.9,
-      repeat: -1,
-      yoyo: true,
-      delay: Math.random() * 2.5,
-      ease: 'sine.inOut',
-    });
+    el.animate(
+      [{ opacity: 1 }, { opacity: 0.45 }],
+      {
+        duration: (0.6 + Math.random() * 0.9) * 1000,
+        delay: Math.random() * 2500,
+        iterations: Infinity,
+        direction: 'alternate',
+        easing: 'ease-in-out',
+      },
+    );
   });
 };
 

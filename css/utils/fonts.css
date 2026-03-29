@@ -1,10 +1,30 @@
 @font-face {
-    font-family: "Daneehand";
-    src: local("Daneehand Regular Cyr"), local("Daneehand Regular"),
-      url("../../fonts/Daneehand\ Regular\ Cyr.woff2") format("woff2"),
-      url("../../fonts/Daneehand\ Regular\ Cyr.ttf") format("ttf"),
-      url("../../fonts/Daneehand\ Regular\ Cyr.woff") format("woff");
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-  }
+  font-family: "Daneehand";
+  src: local("Daneehand Regular Cyr"), local("Daneehand Regular"),
+    url("../../fonts/Daneehand Regular Cyr.woff2") format("woff2"),
+    url("../../fonts/Daneehand Regular Cyr.woff") format("woff"),
+    url("../../fonts/Daneehand Regular Cyr.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Caveat";
+  src: url("../../fonts/Caveat.woff2") format("woff2"),
+    url("../../fonts/Caveat.woff") format("woff"),
+    url("../../fonts/Caveat.ttf") format("truetype");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PT Sans";
+  src: url("../../fonts/PTS56F.woff2") format("woff2"),
+    url("../../fonts/PTS56F.woff") format("woff"),
+    url("../../fonts/PTS56F.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}

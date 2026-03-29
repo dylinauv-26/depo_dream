@@ -1,0 +1,15 @@
+html {
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+.pl-cursor-plane img {
+  max-width: none;
+}

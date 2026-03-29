@@ -3,26 +3,6 @@
   min-height: 800px;
 }
 
-@media (max-width: 767px) {
-  .card-sand.card-sand--pull,
-  .card-sand.card-sand--magic {
-    min-height: 350px;
-  }
-
-  /* Шляпа + зайцы сверху требуют больше высоты, чем колонка с карточками. */
-  .card-sand.card-sand--magic {
-    min-height: clamp(400px, 112vw, 520px);
-    display: flex;
-    flex-direction: column;
-  }
-
-  .card-sand.card-sand--magic .dreams-magic {
-    flex: 1;
-    min-height: 0;
-    width: 100%;
-  }
-}
-
 .card-sand.card-sand--pull {
   overflow: hidden;
   display: flex;
@@ -55,23 +35,7 @@
   padding-right: clamp(14px, 4vw, 28px);
 }
 
-@media (max-width: 767px) {
-  .dreams-pull {
-    padding: 40px 0 24px;
-  }
-
-  .dreams-pull__message {
-    min-height: 0;
-  }
-
-  .dreams-pull__fan {
-    min-height: 200px;
-    max-height: 260px;
-  }
-}
-
-.dreams-pull__intro-text,
-.dreams-pull__back-text {
+.dreams-pull__intro-text {
   font-family: "Daneehand", "Caveat", cursive;
   font-weight: 400;
   font-style: normal;
@@ -82,16 +46,10 @@
 }
 
 .dreams-pull__intro-text {
-  margin-top: 200px;
+  margin-top: clamp(56px, 18vw, 200px);
   font-size: 32px;
   color: var(--color-bg);
   max-width: 28em;
-}
-
-@media (max-width: 520px) {
-  .dreams-pull__intro-text {
-    font-size: clamp(17px, 5.2vw, 32px);
-  }
 }
 
 .dreams-pull__message.is-dream-visible .dreams-pull__intro-text {
@@ -101,7 +59,7 @@
 .dreams-pull__dream-pic {
   display: none;
   width: min(100%, 320px);
-  margin: 100px auto 0 auto;
+  margin: clamp(28px, 9vw, 100px) auto 0 auto;
 }
 
 .dreams-pull__message.is-dream-visible .dreams-pull__dream-pic {
@@ -139,6 +97,7 @@
   transition:
     left 0.55s cubic-bezier(0.4, 0, 0.2, 1),
     right 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+    -webkit-transform 0.55s cubic-bezier(0.4, 0, 0.2, 1),
     transform 0.55s cubic-bezier(0.4, 0, 0.2, 1),
     opacity 0.35s ease,
     z-index 0s linear 0s;
@@ -152,40 +111,42 @@
 
 .dreams-pull__card[data-card="0"] {
   left: 50%;
-  transform: translateX(-115%) rotate(-9deg);
   z-index: 1;
+  -webkit-transform: translate(calc(-50% - 54px), 6px) rotate(-26deg) scale(0.94);
+  transform: translate(calc(-50% - 54px), 6px) rotate(-26deg) scale(0.94);
 }
 
 .dreams-pull__card[data-card="1"] {
   left: 50%;
-  transform: translateX(-50%) rotate(0deg);
-  z-index: 1;
+  z-index: 3;
+  -webkit-transform: translate(-50%, -10px) rotate(0deg) scale(1);
+  transform: translate(-50%, -10px) rotate(0deg) scale(1);
 }
 
 .dreams-pull__card[data-card="2"] {
   left: 50%;
-  transform: translateX(15%) rotate(9deg);
-  z-index: 1;
-}
-
-/* В обычном веере средняя карточка чуть выше по слою */
-.dreams-pull:not(.dreams-pull--active-0):not(.dreams-pull--active-1):not(.dreams-pull--active-2)
-  .dreams-pull__card[data-card="1"] {
   z-index: 2;
+  -webkit-transform: translate(calc(-50% + 54px), 6px) rotate(26deg) scale(0.94);
+  transform: translate(calc(-50% + 54px), 6px) rotate(26deg) scale(0.94);
 }
 
 .dreams-pull__flip {
   position: relative;
   display: block;
   width: 100%;
+  -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
-  transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+  transition:
+    -webkit-transform 0.65s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-transform-origin: center center;
   transform-origin: center center;
 }
 
 .dreams-pull__side {
   position: relative;
   display: block;
+  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   border-radius: 12px;
   overflow: hidden;
@@ -204,6 +165,7 @@
   top: 0;
   width: 100%;
   min-height: 100%;
+  -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);
   background: var(--color-bg);
   color: var(--color-sand);
@@ -214,34 +176,44 @@
 }
 
 .dreams-pull__back-text {
+  font-family: "Daneehand", "Caveat", cursive;
+  font-weight: 400;
+  font-style: normal;
   font-size: clamp(11px, 2.5vw, 18px);
-  letter-spacing: 0.1em;
-  line-height: 1.2;
+  letter-spacing: 0.06em;
+  line-height: 1.25;
+  text-align: center;
+  text-transform: none;
+  white-space: pre-line;
 }
 
 .dreams-pull--active-0 .dreams-pull__card[data-card="0"] .dreams-pull__flip,
 .dreams-pull--active-1 .dreams-pull__card[data-card="1"] .dreams-pull__flip,
 .dreams-pull--active-2 .dreams-pull__card[data-card="2"] .dreams-pull__flip {
+  -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);
 }
 
 .dreams-pull--active-0 .dreams-pull__card[data-card="0"] {
   left: 50%;
   right: auto;
+  -webkit-transform: translateX(-50%) rotate(0deg) scale(1);
   transform: translateX(-50%) rotate(0deg) scale(1);
   z-index: 20;
 }
 
 .dreams-pull--active-0 .dreams-pull__card[data-card="1"] {
   left: 50%;
-  transform: translateX(-165%) rotate(-11deg) scale(0.88);
+  -webkit-transform: translateX(-178%) rotate(-15deg) scale(0.86);
+  transform: translateX(-178%) rotate(-15deg) scale(0.86);
   opacity: 0.88;
   z-index: 0;
 }
 
 .dreams-pull--active-0 .dreams-pull__card[data-card="2"] {
   left: 50%;
-  transform: translateX(65%) rotate(11deg) scale(0.88);
+  -webkit-transform: translateX(78%) rotate(15deg) scale(0.86);
+  transform: translateX(78%) rotate(15deg) scale(0.86);
   opacity: 0.88;
   z-index: 0;
 }
@@ -249,20 +221,23 @@
 .dreams-pull--active-1 .dreams-pull__card[data-card="1"] {
   left: 50%;
   right: auto;
+  -webkit-transform: translateX(-50%) rotate(0deg) scale(1);
   transform: translateX(-50%) rotate(0deg) scale(1);
   z-index: 20;
 }
 
 .dreams-pull--active-1 .dreams-pull__card[data-card="0"] {
   left: 50%;
-  transform: translateX(-165%) rotate(-11deg) scale(0.88);
+  -webkit-transform: translateX(-178%) rotate(-15deg) scale(0.86);
+  transform: translateX(-178%) rotate(-15deg) scale(0.86);
   opacity: 0.88;
   z-index: 0;
 }
 
 .dreams-pull--active-1 .dreams-pull__card[data-card="2"] {
   left: 50%;
-  transform: translateX(65%) rotate(11deg) scale(0.88);
+  -webkit-transform: translateX(78%) rotate(15deg) scale(0.86);
+  transform: translateX(78%) rotate(15deg) scale(0.86);
   opacity: 0.88;
   z-index: 0;
 }
@@ -270,29 +245,25 @@
 .dreams-pull--active-2 .dreams-pull__card[data-card="2"] {
   left: 50%;
   right: auto;
+  -webkit-transform: translateX(-50%) rotate(0deg) scale(1);
   transform: translateX(-50%) rotate(0deg) scale(1);
   z-index: 20;
 }
 
 .dreams-pull--active-2 .dreams-pull__card[data-card="0"] {
   left: 50%;
-  transform: translateX(-165%) rotate(-11deg) scale(0.88);
+  -webkit-transform: translateX(-178%) rotate(-15deg) scale(0.86);
+  transform: translateX(-178%) rotate(-15deg) scale(0.86);
   opacity: 0.88;
   z-index: 0;
 }
 
 .dreams-pull--active-2 .dreams-pull__card[data-card="1"] {
   left: 50%;
-  transform: translateX(-50%) translateY(6px) rotate(-6deg) scale(0.88);
+  -webkit-transform: translateX(-50%) translateY(6px) rotate(-9deg) scale(0.86);
+  transform: translateX(-50%) translateY(6px) rotate(-9deg) scale(0.86);
   opacity: 0.88;
   z-index: 0;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .dreams-pull__card,
-  .dreams-pull__flip {
-    transition-duration: 0.01ms;
-  }
 }
 
 .dreams-magic {
@@ -379,7 +350,9 @@
 }
 
 .dreams-magic__hat--composite img {
+  -webkit-transform: scale(1);
   transform: scale(1);
+  -webkit-transform-origin: 50% 100%;
   transform-origin: 50% 100%;
 }
 
@@ -444,6 +417,7 @@
   position: absolute;
   left: 50%;
   bottom: 12%;
+  -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
   z-index: 14;
 }
@@ -451,7 +425,9 @@
 .dreams-magic-rabbit-hunt > .dreams-magic__rabbit-hint {
   position: fixed;
   left: 50%;
+  bottom: max(20px, calc(constant(safe-area-inset-bottom) + 16px));
   bottom: max(20px, calc(env(safe-area-inset-bottom, 0px) + 16px));
+  -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
   z-index: 2;
 }
@@ -470,6 +446,7 @@ html.dreams-magic-scroll-lock,
 body.dreams-magic-scroll-lock {
   overflow: hidden;
   overscroll-behavior: none;
+  overscroll-behavior-y: none;
 }
 
 .dreams-magic__rabbit {
@@ -515,70 +492,3 @@ body.dreams-magic-scroll-lock {
   word-break: break-word;
 }
 
-@media (max-width: 991px) {
-  .dreams-magic__wand {
-    top: 4px;
-    width: min(30%, 110px);
-  }
-
-  .dreams-magic__stage {
-    min-height: min(500px, 62vw);
-  }
-}
-
-@media (max-width: 767px) {
-  .dreams-magic {
-    flex-direction: column;
-    min-height: 0;
-    padding: 40px 16px 20px;
-    align-items: stretch;
-  }
-
-  .dreams-magic__stage {
-    flex: 1;
-    width: 100%;
-    min-height: clamp(300px, 88vw, 400px);
-    padding-bottom: 8px;
-    justify-content: flex-end;
-  }
-
-  .dreams-magic__hat-wrap {
-    width: min(100%, min(300px, 86vw));
-  }
-
-  .dreams-magic__hat-wrap,
-  .dreams-magic__hat {
-    margin-inline: auto;
-  }
-
-  .dreams-magic__wand {
-    top: 100px;
-    right: max(8px, env(safe-area-inset-right, 0px));
-    width: min(28vw, 96px);
-  }
-
-  .dreams-magic__stage > .dreams-magic__rabbit-hint {
-    bottom: 8%;
-    max-width: min(94vw, 300px);
-    font-size: clamp(0.75rem, 3.2vw, 0.9rem);
-    padding: 8px 12px;
-  }
-}
-
-@media (max-width: 767px) and (orientation: landscape) and (max-height: 480px) {
-  .card-sand.card-sand--magic {
-    min-height: clamp(280px, 92vh, 420px);
-  }
-
-  .dreams-magic__stage {
-    min-height: clamp(200px, 58vh, 300px);
-  }
-
-  .dreams-magic__hat-wrap {
-    width: min(38vw, 200px);
-  }
-
-  .dreams-magic {
-    padding-top: 28px;
-  }
-}

@@ -23,14 +23,9 @@
 .dream-line-marquee__track {
   display: flex;
   width: max-content;
+  -webkit-animation: marquee-scroll var(--dream-line-duration, 200s) linear infinite;
   animation: marquee-scroll var(--dream-line-duration, 200s) linear infinite;
   will-change: transform;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .dream-line-marquee__track {
-    animation: none;
-  }
 }
 
 .dream-line-marquee__segment {
@@ -100,12 +95,14 @@
   height: auto;
   max-height: min(340px, 48vh);
   object-fit: contain;
+  -webkit-transform: translate(-50%, -50%) scale(0.92);
   transform: translate(-50%, -50%) scale(0.92);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
   transition:
     opacity 0.35s ease,
+    -webkit-transform 0.35s ease,
     transform 0.35s ease,
     visibility 0.35s ease,
     left 0.4s ease,
@@ -115,38 +112,7 @@
 .dream-preview-img.is-visible {
   opacity: 1;
   visibility: visible;
+  -webkit-transform: translate(-50%, -50%) scale(1);
   transform: translate(-50%, -50%) scale(1);
 }
 
-@media (max-width: 991px) {
-  .dream-scene {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .dream-lines {
-    display: flex;
-    flex-direction: column;
-    gap: clamp(0.1rem, 1.2vw, 0.28rem);
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .dream-preview-img {
-    width: min(200px, 56vw);
-    max-width: 100%;
-    max-height: min(100px, 32vh);
-  }
-}
-
-@media (max-width: 767px) {
-  .dream-lines {
-    gap: clamp(0.08rem, 1vw, 0.2rem);
-  }
-}
-
-@media (max-width: 575px) {
-  .dream-keyword:focus-visible {
-    outline-offset: 2px;
-  }
-}

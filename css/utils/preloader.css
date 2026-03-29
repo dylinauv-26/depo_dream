@@ -52,6 +52,7 @@ body.has-plane-cursor.plane-cursor-system .pl-cursor-plane {
   display: block;
   width: 72px;
   height: auto;
+  -webkit-filter: brightness(0) invert(1) drop-shadow(0 2px 10px rgba(0, 0, 0, 0.45));
   filter: brightness(0) invert(1) drop-shadow(0 2px 10px rgba(0, 0, 0, 0.45));
 }
 
@@ -59,13 +60,3 @@ body.has-plane-cursor.plane-cursor-system .pl-cursor-plane {
   z-index: 99999;
 }
 
-@media (max-width: 767px) {
-  body.has-plane-cursor,
-  body.has-plane-cursor * {
-    cursor: auto !important;
-  }
-
-  .pl-cursor-plane--global {
-    display: none !important;
-  }
-}

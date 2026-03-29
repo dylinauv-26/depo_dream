@@ -8,13 +8,6 @@
   --section-gap: 20px;
 }
 
-@media (max-width: 767px) {
-  :root {
-    --radius-card: 42px;
-    --radius-card-lg: 42px;
-  }
-}
-
 body {
   margin: 0;
   min-height: 100vh;
@@ -28,18 +21,6 @@ body {
   padding-bottom: 40px;
 }
 
-@media (min-width: 768px) {
-  .page {
-    padding-top: 32px;
-  }
-}
-
-@media (min-width: 992px) {
-  .page {
-    padding-top: 40px;
-  }
-}
-
 /* Карточки */
 .card-dark {
   border: 1px solid var(--color-sand-border);
@@ -47,13 +28,6 @@ body {
   background-color: var(--color-bg);
   position: relative;
   padding: 20px;
-}
-
-@media (min-width: 768px) {
-  .card-dark {
-    border-radius: var(--radius-card-lg);
-    padding: 24px;
-  }
 }
 
 .card-dark--hero {
@@ -82,12 +56,6 @@ body {
   position: relative;
 }
 
-@media (min-width: 768px) {
-  .card-sand {
-    border-radius: var(--radius-card-lg);
-  }
-}
-
 .label-corner {
   position: absolute;
   top: 16px;
@@ -97,20 +65,6 @@ body {
   font-size: 1.25rem;
   line-height: 1.2;
   font-style: normal;
-}
-
-@media (min-width: 992px) {
-  .label-corner {
-    margin-right: 0;
-  }
-}
-
-@media (min-width: 768px) {
-  .label-corner {
-    font-size: 1.5rem;
-    top: 20px;
-    right: 24px;
-  }
 }
 
 .card-dark .label-corner {
@@ -156,13 +110,8 @@ body {
 .marquee__track {
   display: flex;
   width: max-content;
+  -webkit-animation: marquee-scroll 120s linear infinite;
   animation: marquee-scroll 120s linear infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .marquee__track {
-    animation: none;
-  }
 }
 
 .marquee__text {
@@ -175,12 +124,24 @@ body {
   padding-right: 4rem;
 }
 
+@-webkit-keyframes marquee-scroll {
+  from {
+    -webkit-transform: translateX(0);
+  }
+
+  to {
+    -webkit-transform: translateX(-50%);
+  }
+}
+
 @keyframes marquee-scroll {
   from {
+    -webkit-transform: translateX(0);
     transform: translateX(0);
   }
 
   to {
+    -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
   }
 }
@@ -197,23 +158,6 @@ body {
   color: var(--color-bg);
   border-radius: var(--radius-card);
   padding: 24px 20px;
-}
-
-@media (min-width: 768px) {
-  .footer {
-    border-radius: var(--radius-card-lg);
-    padding: 28px 28px;
-  }
-}
-
-@media (max-width: 768px) {
-  .footer {
-    padding: 24px;
-  }
-
-  .footer__meta {
-    font-size: 24px;
-  }
 }
 
 .footer__inner {
@@ -252,18 +196,6 @@ body {
   height: auto;
 }
 
-@media (max-width: 767px) {
-  .footer__logo {
-    width: min(42vw, 200px);
-  }
-}
-
-@media (min-width: 992px) {
-  .footer__logo {
-    width: 257px;
-  }
-}
-
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -276,24 +208,3 @@ body {
   border: 0;
 }
 
-@media (max-width: 767px) {
-  .card-dark {
-    min-height: 350px;
-  }
-
-  .card-dark--hero {
-    min-height: 800px;
-  }
-
-  .card-dark.card-dark--live {
-    min-height: clamp(400px, 92vw, 480px);
-  }
-
-  .card-dark--dreams {
-    min-height: unset;
-  }
-
-  .card-sand {
-    min-height: 350px;
-  }
-}

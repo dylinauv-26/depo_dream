@@ -48,14 +48,12 @@ const readSkipPreloadFlag = () => {
       return true;
     }
   } catch (_) {
-    /* ignore */
   }
   try {
     if (window.localStorage?.getItem('dulickSkipPreload') === '1') {
       return true;
     }
   } catch (_) {
-    /* ignore */
   }
   return false;
 };
@@ -90,6 +88,24 @@ export const initPreloader = () => {
   let H = 0;
   let erasedEstimate = 0;
   let finished = false;
+  let pageReady = document.readyState === 'complete';
+  let erasedEnough = false;
+
+  const maybeFinish = () => {
+    if (finished || !pageReady || !erasedEnough) return;
+    doFinish();
+  };
+
+  if (!pageReady) {
+    window.addEventListener(
+      'load',
+      () => {
+        pageReady = true;
+        maybeFinish();
+      },
+      { once: true },
+    );
+  }
 
   const onResize = () => {
     if (finished) return;
@@ -114,7 +130,8 @@ export const initPreloader = () => {
     erasedEstimate += Math.PI * BRUSH_RADIUS * BRUSH_RADIUS * 0.35;
     const need = W * H * ERASE_THRESHOLD;
     if (erasedEstimate >= need) {
-      finish();
+      erasedEnough = true;
+      maybeFinish();
     }
   };
 
@@ -123,7 +140,7 @@ export const initPreloader = () => {
     cursorPlane.style.top = `${clientY}px`;
   };
 
-  const finish = () => {
+  const doFinish = () => {
     if (finished) return;
     finished = true;
     window.removeEventListener('resize', onResize);

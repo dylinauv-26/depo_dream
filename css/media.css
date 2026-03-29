@@ -1,0 +1,397 @@
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track {
+    -webkit-animation: none;
+    animation: none;
+  }
+
+  .dream-line-marquee__track {
+    -webkit-animation: none;
+    animation: none;
+  }
+
+  .live-stars__track {
+    -webkit-animation: none;
+    animation: none;
+  }
+
+  .hero-scene__el {
+    transition:
+      -webkit-filter 0.2s ease,
+      filter 0.2s ease;
+  }
+
+  .dreams-pull__card,
+  .dreams-pull__flip {
+    transition-duration: 0.01ms;
+  }
+}
+
+@media (max-width: 400px) {
+  .live-stars__toast {
+    width: min(90vw, 280px);
+    max-height: min(180px, 34vh);
+    padding: 12px 16px;
+    font-size: clamp(11px, 3.4vw, 16px);
+  }
+}
+
+@media (max-width: 520px) {
+  .dreams-pull__intro-text {
+    margin-top: 120px;
+    font-size: clamp(17px, 5.2vw, 32px);
+  }
+}
+
+@media (max-width: 575px) {
+  .dream-keyword:focus-visible {
+    outline-offset: 2px;
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --radius-card: 42px;
+    --radius-card-lg: 42px;
+  }
+
+  .card-dark {
+    min-height: 350px;
+  }
+
+  .card-dark--hero {
+    min-height: 800px;
+  }
+
+  .card-dark.card-dark--live {
+    min-height: clamp(400px, 92vw, 480px);
+  }
+
+  .card-dark--dreams {
+    min-height: unset;
+  }
+
+  .card-sand {
+    min-height: 350px;
+  }
+
+  .footer__logo {
+    width: min(42vw, 200px);
+  }
+
+  body.has-plane-cursor,
+  body.has-plane-cursor * {
+    cursor: auto !important;
+  }
+
+  .pl-cursor-plane--global {
+    display: none !important;
+  }
+
+  .hero-scene {
+    min-height: 800px;
+  }
+
+  .hero-scene__logo {
+    min-height: 800px;
+    padding: 32px 16px 40px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-scene__cloud-wrap--1,
+  .hero-scene__cloud-wrap--5 {
+    max-width: 62%;
+  }
+
+  .hero-scene__cloud-wrap--2 {
+    width: min(44%, 260px);
+  }
+
+  .hero-scene__cloud-wrap--3 {
+    width: min(42%, 240px);
+  }
+
+  .hero-scene__plane--red {
+    width: min(30%, 108px);
+    top: 8%;
+  }
+
+  .hero-scene__plane--blue {
+    width: min(28%, 96px);
+  }
+
+  .hero-scene__logo .logo-delo {
+    max-width: 90vw;
+  }
+
+  .dream-lines {
+    gap: clamp(0.08rem, 1vw, 0.2rem);
+  }
+
+  .card-sand.card-sand--pull,
+  .card-sand.card-sand--magic {
+    min-height: 350px;
+  }
+
+  .card-sand.card-sand--pull {
+    min-height: clamp(520px, 122vw, 700px);
+  }
+
+  .card-sand.card-sand--magic {
+    min-height: clamp(400px, 112vw, 520px);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-sand.card-sand--magic .dreams-magic {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+  }
+
+  .dreams-pull__message {
+    min-height: 0;
+    flex: 0 0 auto;
+  }
+
+  .dreams-pull__fan {
+    flex: 1 1 auto;
+    min-height: 240px;
+    max-height: min(42vh, 320px);
+    padding-bottom: 12px;
+  }
+
+  .dreams-pull__card {
+    max-width: min(200px, 46vw);
+  }
+
+  .dreams-pull__dream-pic {
+    width: min(100%, 52vw, 200px);
+    margin-top: 80px;
+  }
+
+  .dreams-pull:not(.dreams-pull--active-0):not(.dreams-pull--active-1):not(.dreams-pull--active-2)
+    .dreams-pull__card[data-card="0"] {
+    -webkit-transform: translate(calc(-50% - 34px), 4px) rotate(-22deg) scale(0.93);
+    transform: translate(calc(-50% - 34px), 4px) rotate(-22deg) scale(0.93);
+  }
+
+  .dreams-pull:not(.dreams-pull--active-0):not(.dreams-pull--active-1):not(.dreams-pull--active-2)
+    .dreams-pull__card[data-card="1"] {
+    -webkit-transform: translate(-50%, -8px) rotate(0deg) scale(1);
+    transform: translate(-50%, -8px) rotate(0deg) scale(1);
+  }
+
+  .dreams-pull:not(.dreams-pull--active-0):not(.dreams-pull--active-1):not(.dreams-pull--active-2)
+    .dreams-pull__card[data-card="2"] {
+    -webkit-transform: translate(calc(-50% + 34px), 4px) rotate(22deg) scale(0.93);
+    transform: translate(calc(-50% + 34px), 4px) rotate(22deg) scale(0.93);
+  }
+
+  .dreams-pull--active-0 .dreams-pull__card[data-card="1"] {
+    -webkit-transform: translateX(-142%) rotate(-14deg) scale(0.8);
+    transform: translateX(-142%) rotate(-14deg) scale(0.8);
+  }
+
+  .dreams-pull--active-0 .dreams-pull__card[data-card="2"] {
+    -webkit-transform: translateX(62%) rotate(14deg) scale(0.8);
+    transform: translateX(62%) rotate(14deg) scale(0.8);
+  }
+
+  .dreams-pull--active-1 .dreams-pull__card[data-card="0"] {
+    -webkit-transform: translateX(-142%) rotate(-14deg) scale(0.8);
+    transform: translateX(-142%) rotate(-14deg) scale(0.8);
+  }
+
+  .dreams-pull--active-1 .dreams-pull__card[data-card="2"] {
+    -webkit-transform: translateX(62%) rotate(14deg) scale(0.8);
+    transform: translateX(62%) rotate(14deg) scale(0.8);
+  }
+
+  .dreams-pull--active-2 .dreams-pull__card[data-card="0"] {
+    -webkit-transform: translateX(-142%) rotate(-14deg) scale(0.8);
+    transform: translateX(-142%) rotate(-14deg) scale(0.8);
+  }
+
+  .dreams-pull--active-2 .dreams-pull__card[data-card="1"] {
+    -webkit-transform: translateX(-50%) translateY(5px) rotate(-8deg) scale(0.8);
+    transform: translateX(-50%) translateY(5px) rotate(-8deg) scale(0.8);
+  }
+
+  .dreams-magic {
+    flex-direction: column;
+    min-height: 0;
+    padding: 40px 16px 20px;
+    align-items: stretch;
+  }
+
+  .dreams-magic__stage {
+    flex: 1;
+    width: 100%;
+    min-height: clamp(300px, 88vw, 400px);
+    padding-bottom: 8px;
+    justify-content: flex-end;
+  }
+
+  .dreams-magic__hat-wrap {
+    width: min(100%, min(300px, 86vw));
+  }
+
+  .dreams-magic__hat-wrap,
+  .dreams-magic__hat {
+    margin-inline: auto;
+  }
+
+  .dreams-magic__wand {
+    top: 100px;
+    right: max(8px, constant(safe-area-inset-right));
+    right: max(8px, env(safe-area-inset-right, 0px));
+    width: min(28vw, 96px);
+  }
+
+  .dreams-magic__stage > .dreams-magic__rabbit-hint {
+    bottom: 8%;
+    max-width: min(94vw, 300px);
+    font-size: clamp(0.75rem, 3.2vw, 0.9rem);
+    padding: 8px 12px;
+  }
+
+  .live-stars {
+    min-height: 320px;
+    margin-top: 6px;
+  }
+
+  .live-stars__segment {
+    min-height: 400px;
+  }
+
+  .live-stars__toast {
+    width: min(92vw, 300px);
+    max-width: calc(100vw - 32px);
+    min-height: 0;
+    max-height: min(200px, 36vh);
+    padding: 14px 18px;
+    bottom: 20px;
+    border-radius: 18px;
+    border-width: 1px;
+    font-size: clamp(12px, 3.6vw, 17px);
+    line-height: 1.2;
+    letter-spacing: 0.055em;
+  }
+}
+
+@media (max-width: 767px) and (orientation: landscape) and (max-height: 480px) {
+  .card-sand.card-sand--magic {
+    min-height: clamp(280px, 92vh, 420px);
+  }
+
+  .dreams-magic__stage {
+    min-height: clamp(200px, 58vh, 300px);
+  }
+
+  .dreams-magic__hat-wrap {
+    width: min(38vw, 200px);
+  }
+
+  .dreams-magic {
+    padding-top: 28px;
+  }
+}
+
+@media (max-width: 991px) {
+  /* dream-scene.css */
+  .dream-scene {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dream-lines {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.1rem, 1.2vw, 0.28rem);
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .dream-preview-img {
+    width: min(200px, 56vw);
+    max-width: 100%;
+    max-height: min(100px, 32vh);
+  }
+
+  /* dreams-columns.css */
+  .dreams-magic__wand {
+    top: 4px;
+    width: min(30%, 110px);
+  }
+
+  .dreams-magic__stage {
+    min-height: min(500px, 62vw);
+  }
+}
+
+@media (min-width: 768px) {
+  /* style.css */
+  .page {
+    padding-top: 32px;
+  }
+
+  .card-dark {
+    border-radius: var(--radius-card-lg);
+    padding: 24px;
+  }
+
+  .card-sand {
+    border-radius: var(--radius-card-lg);
+  }
+
+  .label-corner {
+    font-size: 1.5rem;
+    top: 20px;
+    right: 24px;
+  }
+
+  .footer {
+    border-radius: var(--radius-card-lg);
+    padding: 28px 28px;
+  }
+
+  /* live-stars.css */
+  .card-dark.card-dark--live {
+    min-height: 800px;
+  }
+
+  .live-stars {
+    min-height: 720px;
+  }
+
+  .live-stars__segment {
+    min-height: 680px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* style.css — footer */
+  .footer {
+    padding: 24px;
+  }
+
+  .footer__meta {
+    font-size: 24px;
+  }
+}
+
+@media (min-width: 992px) {
+  /* style.css */
+  .page {
+    padding-top: 40px;
+  }
+
+  .label-corner {
+    margin-right: 0;
+  }
+
+  .footer__logo {
+    width: 257px;
+  }
+}

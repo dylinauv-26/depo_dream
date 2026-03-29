@@ -1,26 +1,14 @@
 const STAR_SRC = 'img/first-banner/star.svg';
-const STAR_COUNT = 42;
+const STAR_COUNT_DESKTOP = 42;
+const STAR_COUNT_MOBILE = 18;
 
-const getGsap = () => (typeof window !== 'undefined' ? window.gsap : null);
+const reduceMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-const registerHoverPause = (el, tweens) => {
-  const list = Array.isArray(tweens) ? tweens : [tweens];
-
-  const handleEnter = () => {
-    list.forEach((t) => {
-      if (t && typeof t.pause === 'function') t.pause();
-    });
-  };
-  const handleLeave = () => {
-    const wrap = el.closest('.hero-scene__cloud-wrap');
-    if (wrap && wrap.classList.contains('is-dragging')) return;
-    list.forEach((t) => {
-      if (t && typeof t.resume === 'function') t.resume();
-    });
-  };
-
-  el.addEventListener('mouseenter', handleEnter);
-  el.addEventListener('mouseleave', handleLeave);
+const getHeroStarLayout = () => {
+  if (window.matchMedia('(max-width: 767px)').matches) {
+    return { count: STAR_COUNT_MOBILE, cols: 6 };
+  }
+  return { count: STAR_COUNT_DESKTOP, cols: 7 };
 };
 
 const shuffleIndices = (len) => {
@@ -34,200 +22,166 @@ const shuffleIndices = (len) => {
 
 const initStars = (container) => {
   if (!container) return;
-  const cols = 7;
-  const rows = Math.ceil(STAR_COUNT / cols);
-  const cellCount = cols * rows;
-  const order = shuffleIndices(cellCount);
-
+  const { count, cols } = getHeroStarLayout();
+  const rows = Math.ceil(count / cols);
+  const order = shuffleIndices(cols * rows);
   const frag = document.createDocumentFragment();
-  for (let i = 0; i < STAR_COUNT; i += 1) {
+  for (let i = 0; i < count; i += 1) {
     const idx = order[i];
     const col = idx % cols;
     const row = Math.floor(idx / cols);
     const jitterX = 0.06 + Math.random() * 0.88;
     const jitterY = 0.06 + Math.random() * 0.88;
-    const leftPct = ((col + jitterX) / cols) * 90 + 5;
-    const topPct = ((row + jitterY) / rows) * 86 + 7;
-
     const img = document.createElement('img');
     img.src = STAR_SRC;
     img.alt = '';
     img.className = 'hero-scene__star hero-scene__el';
     img.width = 25;
     img.height = 22;
-    img.style.left = `${leftPct}%`;
-    img.style.top = `${topPct}%`;
-    const size = 7 + Math.random() * 12;
-    img.style.width = `${size}px`;
+    img.style.left = `${((col + jitterX) / cols) * 90 + 5}%`;
+    img.style.top = `${((row + jitterY) / rows) * 86 + 7}%`;
+    img.style.width = `${7 + Math.random() * 12}px`;
     frag.appendChild(img);
   }
   container.appendChild(frag);
 };
 
-const runCloudDrift = (g, clouds) => {
-  clouds.forEach((el, i) => {
-    const dir = i % 2 === 0 ? 1 : -1;
-    const tx = g.to(el, {
-      x: dir * (52 + (i % 5) * 16),
-      duration: 17 + i * 0.75,
-      repeat: -1,
-      yoyo: true,
-      ease: 'sine.inOut',
-      delay: i * 0.35,
-    });
-    const ty = g.to(el, {
-      y: (i % 2 === 0 ? 1 : -1) * (14 + (i % 4) * 2),
-      duration: 9 + i * 0.45,
-      repeat: -1,
-      yoyo: true,
-      ease: 'sine.inOut',
-    });
-    const tr = g.to(el, {
-      rotation: (i % 2 === 0 ? 1 : -1) * 2.5,
-      duration: 15 + i * 0.55,
-      repeat: -1,
-      yoyo: true,
-      ease: 'sine.inOut',
-    });
-    registerHoverPause(el, [tx, ty, tr]);
+const makeDraggable = (el, { onPress, onRelease } = {}) => {
+  let startX = 0, startY = 0, currentX = 0, currentY = 0;
+
+  el.addEventListener('dragstart', (e) => e.preventDefault());
+
+  el.addEventListener('pointerdown', (e) => {
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    e.preventDefault();
+    el.setPointerCapture(e.pointerId);
+    startX = e.clientX - currentX;
+    startY = e.clientY - currentY;
+    onPress?.();
   });
+
+  el.addEventListener('pointermove', (e) => {
+    if (!el.hasPointerCapture(e.pointerId)) return;
+    currentX = e.clientX - startX;
+    currentY = e.clientY - startY;
+    el.style.translate = `${currentX}px ${currentY}px`;
+  });
+
+  const end = () => onRelease?.();
+  el.addEventListener('pointerup', end);
+  el.addEventListener('pointercancel', end);
 };
 
-const pauseCloudTweens = (g, img) => {
-  g.getTweensOf(img).forEach((t) => {
-    if (t && typeof t.pause === 'function') t.pause();
-  });
-};
+const startCloudDrift = (el, i) => {
+  const dir = i % 2 === 0 ? 1 : -1;
+  const dx = dir * (52 + (i % 5) * 16);
+  const dy = (i % 2 === 0 ? 1 : -1) * (14 + (i % 4) * 2);
+  const dr = (i % 2 === 0 ? 1 : -1) * 2.5;
+  const base = { iterations: Infinity, direction: 'alternate', easing: 'ease-in-out', composite: 'add' };
 
-const resumeCloudTweens = (g, img) => {
-  g.getTweensOf(img).forEach((t) => {
-    if (t && typeof t.resume === 'function') t.resume();
-  });
-};
-
-const initCloudDraggable = (g, scene) => {
-  const Draggable = typeof window !== 'undefined' ? window.Draggable : null;
-  if (!g || !Draggable || !scene) return;
-  g.registerPlugin(Draggable);
-
-  scene.querySelectorAll('.hero-scene__cloud-wrap').forEach((wrap) => {
-    const img = wrap.querySelector('.hero-scene__cloud');
-    if (!img) return;
-
-    Draggable.create(wrap, {
-      type: 'x,y',
-      bounds: scene,
-      inertia: false,
-      cursor: 'grab',
-      activeCursor: 'grabbing',
-      onPress: () => {
-        wrap.classList.add('is-dragging');
-        pauseCloudTweens(g, img);
-      },
-      onRelease: () => {
-        wrap.classList.remove('is-dragging');
-        resumeCloudTweens(g, img);
-      },
-    });
-  });
-};
-
-const initPlaneDraggable = (g, scene) => {
-  const Draggable = typeof window !== 'undefined' ? window.Draggable : null;
-  if (!g || !Draggable || !scene) return;
-
-  scene.querySelectorAll('.hero-scene__plane').forEach((plane) => {
-    Draggable.create(plane, {
-      type: 'x,y',
-      bounds: scene,
-      inertia: false,
-      cursor: 'grab',
-      activeCursor: 'grabbing',
-      onPress: () => {
-        plane.classList.add('is-dragging');
-        pauseCloudTweens(g, plane);
-      },
-      onRelease: () => {
-        plane.classList.remove('is-dragging');
-        resumeCloudTweens(g, plane);
-      },
-    });
-  });
-};
-
-const runPlaneFlight = (g, red, blue) => {
-  if (red) {
-    g.to(red, {
-      x: '-=220',
-      y: '+=140',
-      rotation: 22,
-      duration: 18,
-      repeat: -1,
-      yoyo: true,
-      ease: 'sine.inOut',
-    });
-  }
-  if (blue) {
-    g.to(blue, {
-      x: '+=210',
-      y: '-=120',
-      rotation: -20,
-      duration: 15,
-      repeat: -1,
-      yoyo: true,
-      ease: 'sine.inOut',
-    });
-  }
+  return [
+    el.animate(
+      [{ transform: 'translateX(0)' }, { transform: `translateX(${dx}px)` }],
+      { ...base, duration: (17 + i * 0.75) * 1000, delay: i * 350 },
+    ),
+    el.animate(
+      [{ transform: 'translateY(0)' }, { transform: `translateY(${dy}px)` }],
+      { ...base, duration: (9 + i * 0.45) * 1000 },
+    ),
+    el.animate(
+      [{ transform: 'rotate(0deg)' }, { transform: `rotate(${dr}deg)` }],
+      { ...base, duration: (15 + i * 0.55) * 1000 },
+    ),
+  ];
 };
 
 const runMotion = () => {
-  const g = getGsap();
-  if (!g) return;
-
   const scene = document.getElementById('hero-scene');
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const rm = reduceMotion();
 
-  if (!reduce) {
-    const clouds = document.querySelectorAll('.hero-scene__cloud');
-    runCloudDrift(g, clouds);
-
+  if (!rm) {
     const moon = document.querySelector('.hero-scene__moon');
     if (moon) {
-      g.to(moon, {
-        y: '+=6',
-        duration: 4,
-        repeat: -1,
-        yoyo: true,
-        ease: 'sine.inOut',
-      });
+      moon.animate(
+        [{ transform: 'translateY(0)' }, { transform: 'translateY(6px)' }],
+        { duration: 4000, iterations: Infinity, direction: 'alternate', easing: 'ease-in-out' },
+      );
     }
 
     const red = document.querySelector('.hero-scene__plane--red');
     const blue = document.querySelector('.hero-scene__plane--blue');
-    runPlaneFlight(g, red, blue);
+
+    if (red) {
+      red._flightAnim = red.animate(
+        [{ transform: 'translate(0,0) rotate(0deg)' }, { transform: 'translate(-220px,140px) rotate(22deg)' }],
+        { duration: 18000, iterations: Infinity, direction: 'alternate', easing: 'ease-in-out' },
+      );
+    }
+    if (blue) {
+      blue._flightAnim = blue.animate(
+        [{ transform: 'translate(0,0) rotate(0deg)' }, { transform: 'translate(210px,-120px) rotate(-20deg)' }],
+        { duration: 15000, iterations: Infinity, direction: 'alternate', easing: 'ease-in-out' },
+      );
+    }
 
     document.querySelectorAll('.hero-scene__star').forEach((el) => {
-      g.to(el, {
-        opacity: 0.45,
-        duration: 0.6 + Math.random() * 0.9,
-        repeat: -1,
-        yoyo: true,
-        delay: Math.random() * 2.5,
-        ease: 'sine.inOut',
-      });
+      el.animate(
+        [{ opacity: 1 }, { opacity: 0.45 }],
+        {
+          duration: (0.6 + Math.random() * 0.9) * 1000,
+          delay: Math.random() * 2500,
+          iterations: Infinity,
+          direction: 'alternate',
+          easing: 'ease-in-out',
+        },
+      );
     });
   }
 
-  if (scene) {
-    initCloudDraggable(g, scene);
-    initPlaneDraggable(g, scene);
-  }
+  if (!scene) return;
+
+  scene.querySelectorAll('.hero-scene__cloud-wrap').forEach((wrap, i) => {
+    const cloud = wrap.querySelector('.hero-scene__cloud');
+    const anims = rm ? [] : startCloudDrift(cloud, i);
+
+    if (!rm) {
+      cloud.addEventListener('mouseenter', () => {
+        if (!wrap.classList.contains('is-dragging')) anims.forEach((a) => a.pause());
+      });
+      cloud.addEventListener('mouseleave', () => {
+        if (!wrap.classList.contains('is-dragging')) anims.forEach((a) => a.play());
+      });
+    }
+
+    makeDraggable(wrap, {
+      onPress: () => {
+        wrap.classList.add('is-dragging');
+        anims.forEach((a) => a.pause());
+      },
+      onRelease: () => {
+        wrap.classList.remove('is-dragging');
+        anims.forEach((a) => a.play());
+      },
+    });
+  });
+
+  scene.querySelectorAll('.hero-scene__plane').forEach((plane) => {
+    makeDraggable(plane, {
+      onPress: () => {
+        plane.classList.add('is-dragging');
+        plane._flightAnim?.pause();
+      },
+      onRelease: () => {
+        plane.classList.remove('is-dragging');
+        plane._flightAnim?.play();
+      },
+    });
+  });
 };
 
 export const initHeroScene = () => {
   const starsBox = document.getElementById('hero-stars');
   if (!starsBox) return;
-
   initStars(starsBox);
   runMotion();
 };
