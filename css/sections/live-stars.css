@@ -1,8 +1,13 @@
 .card-dark.card-dark--live {
   padding: 0;
   overflow: hidden;
-  min-height: 800px;
   position: relative;
+}
+
+@media (min-width: 768px) {
+  .card-dark.card-dark--live {
+    min-height: 800px;
+  }
 }
 
 .card-dark.card-dark--live .label-corner {
@@ -12,8 +17,13 @@
 .live-stars {
   position: relative;
   width: 100%;
-  min-height: 720px;
   margin-top: 8px;
+}
+
+@media (min-width: 768px) {
+  .live-stars {
+    min-height: 720px;
+  }
 }
 
 .live-stars__track {
@@ -32,8 +42,24 @@
   position: relative;
   flex-shrink: 0;
   width: min(3200px, 220vw);
-  min-height: 680px;
   height: 100%;
+}
+
+@media (min-width: 768px) {
+  .live-stars__segment {
+    min-height: 680px;
+  }
+}
+
+@media (max-width: 767px) {
+  .live-stars {
+    min-height: 320px;
+    margin-top: 6px;
+  }
+
+  .live-stars__segment {
+    min-height: 400px;
+  }
 }
 
 .live-stars__star {
@@ -71,23 +97,22 @@
 .live-stars__toast {
   position: absolute;
   left: 50%;
-  bottom: 48px;
+  bottom: clamp(32px, 6vh, 72px);
   transform: translateX(-50%) translateY(12px);
-  box-sizing: border-box;
-  width: 300px;
-  max-width: min(300px, calc(100vw - 32px));
-  height: 115px;
-  padding: 10px 14px;
+  width: min(360px, calc(100vw - 28px));
+  min-height: 130px;
+  max-height: min(170px, 22vh);
+  padding: clamp(10px, 1.75vw, 18px) clamp(12px, 2vw, 22px);
   border: 1px solid #e3d5b7;
-  border-radius: 24px;
+  border-radius: 20px;
   background: #37393f;
   color: #e3d5b7;
   font-family: "Daneehand", "Caveat", cursive;
   font-weight: 400;
   font-style: normal;
-  font-size: clamp(11px, 2.8vw, 16px);
-  line-height: 1.2;
-  letter-spacing: 0.1em;
+  font-size: clamp(11px, 2.1vw, 19px);
+  line-height: 1.22;
+  letter-spacing: 0.06em;
   text-align: center;
   text-transform: uppercase;
   display: flex;
@@ -115,4 +140,29 @@
   max-height: 100%;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 767px) {
+  .live-stars__toast {
+    width: min(92vw, 300px);
+    max-width: calc(100vw - 32px);
+    min-height: 0;
+    max-height: min(200px, 36vh);
+    padding: 14px 18px;
+    bottom: 20px;
+    border-radius: 18px;
+    border-width: 1px;
+    font-size: clamp(12px, 3.6vw, 17px);
+    line-height: 1.2;
+    letter-spacing: 0.055em;
+  }
+}
+
+@media (max-width: 400px) {
+  .live-stars__toast {
+    width: min(90vw, 280px);
+    max-height: min(180px, 34vh);
+    padding: 12px 16px;
+    font-size: clamp(11px, 3.4vw, 16px);
+  }
 }

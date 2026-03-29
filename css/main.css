@@ -1,3 +1,5 @@
+@import url("utils/reset.css");
+@import url("utils/fonts.css");
 @import url("utils/preloader.css");
 @import url("utils/grid.css");
 @import url("style.css");

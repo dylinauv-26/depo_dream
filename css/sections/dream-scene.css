@@ -1,20 +1,8 @@
-@font-face {
-  font-family: "Daneehand";
-  src: local("Daneehand Regular Cyr"), local("Daneehand Regular"),
-    url("../fonts/Daneehand\ Regular\ Cyr.woff2") format("woff2"),
-    url("../fonts/Daneehand\ Regular\ Cyr.ttf") format("ttf"),
-    url("../fonts/Daneehand\ Regular\ Cyr.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
 .dream-scene {
   position: relative;
   margin: 0;
   padding: 0;
   isolation: isolate;
-  min-height: min(70vh, 820px);
 }
 
 .dream-lines {
@@ -96,89 +84,68 @@
 
 .dream-scene__illustrations {
   position: absolute;
-  left: clamp(8px, 4vw, 48px);
-  right: auto;
-  top: 50%;
-  transform: translateY(-50%);
-  width: min(240px, 38vw);
-  height: min(320px, 55vh);
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  inset: 0;
+  width: auto;
+  height: auto;
   pointer-events: none;
   z-index: 4;
 }
 
 .dream-preview-img {
   position: absolute;
-  left: 0;
+  left: 50%;
   top: 50%;
-  transform: translateY(-50%) scale(0.92);
-  width: 100%;
+  width: min(240px, 38vw);
+  max-width: min(280px, 44vw);
   height: auto;
-  max-height: 100%;
+  max-height: min(340px, 48vh);
   object-fit: contain;
+  transform: translate(-50%, -50%) scale(0.92);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s ease;
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease,
+    visibility 0.35s ease,
+    left 0.4s ease,
+    top 0.4s ease;
 }
 
 .dream-preview-img.is-visible {
   opacity: 1;
   visibility: visible;
-  transform: translateY(-50%) scale(1);
+  transform: translate(-50%, -50%) scale(1);
 }
 
 @media (max-width: 991px) {
   .dream-scene {
-    min-height: auto;
-    padding: 0 0 28px;
+    display: flex;
+    flex-direction: column;
   }
 
   .dream-lines {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.1rem, 1.2vw, 0.28rem);
     width: 100%;
     max-width: 100%;
-    padding-left: clamp(10px, 3.5vw, 20px);
-    padding-right: clamp(10px, 3.5vw, 20px);
-    box-sizing: border-box;
-    gap: 0.28rem;
-  }
-
-  .dream-line-marquee__text {
-    font-size: clamp(1.2rem, 4.2vw, 2.75rem);
-    line-height: 1.22;
-    letter-spacing: 0.08em;
-    padding-right: clamp(1.25rem, 4vw, 2.5rem);
-  }
-
-  .dream-scene__illustrations {
-    position: relative;
-    left: auto;
-    top: auto;
-    transform: none;
-    width: min(200px, 58vw);
-    height: min(220px, 38vh);
-    margin: 20px auto 0;
   }
 
   .dream-preview-img {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.92);
+    width: min(200px, 56vw);
+    max-width: 100%;
+    max-height: min(100px, 32vh);
   }
+}
 
-  .dream-preview-img.is-visible {
-    transform: translate(-50%, -50%) scale(1);
+@media (max-width: 767px) {
+  .dream-lines {
+    gap: clamp(0.08rem, 1vw, 0.2rem);
   }
 }
 
 @media (max-width: 575px) {
-  .dream-line-marquee__text {
-    font-size: clamp(1rem, 4.6vw, 1.65rem);
-    letter-spacing: 0.06em;
-  }
-
   .dream-keyword:focus-visible {
     outline-offset: 2px;
   }

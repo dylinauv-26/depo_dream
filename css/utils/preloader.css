@@ -58,3 +58,14 @@ body.has-plane-cursor.plane-cursor-system .pl-cursor-plane {
 .pl-cursor-plane--global {
   z-index: 99999;
 }
+
+@media (max-width: 767px) {
+  body.has-plane-cursor,
+  body.has-plane-cursor * {
+    cursor: auto !important;
+  }
+
+  .pl-cursor-plane--global {
+    display: none !important;
+  }
+}

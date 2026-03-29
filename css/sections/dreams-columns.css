@@ -3,6 +3,26 @@
   min-height: 800px;
 }
 
+@media (max-width: 767px) {
+  .card-sand.card-sand--pull,
+  .card-sand.card-sand--magic {
+    min-height: 350px;
+  }
+
+  /* Шляпа + зайцы сверху требуют больше высоты, чем колонка с карточками. */
+  .card-sand.card-sand--magic {
+    min-height: clamp(400px, 112vw, 520px);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-sand.card-sand--magic .dreams-magic {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+  }
+}
+
 .card-sand.card-sand--pull {
   overflow: hidden;
   display: flex;
@@ -15,9 +35,7 @@
   right: clamp(14px, 4vw, 28px);
 }
 
-/* ——— Левая колонка ——— */
 .dreams-pull {
-  padding: 56px 0 32px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -35,7 +53,21 @@
   justify-content: center;
   padding-left: clamp(14px, 4vw, 28px);
   padding-right: clamp(14px, 4vw, 28px);
-  box-sizing: border-box;
+}
+
+@media (max-width: 767px) {
+  .dreams-pull {
+    padding: 40px 0 24px;
+  }
+
+  .dreams-pull__message {
+    min-height: 0;
+  }
+
+  .dreams-pull__fan {
+    min-height: 200px;
+    max-height: 260px;
+  }
 }
 
 .dreams-pull__intro-text,
@@ -50,7 +82,7 @@
 }
 
 .dreams-pull__intro-text {
-  margin: 0;
+  margin-top: 200px;
   font-size: 32px;
   color: var(--color-bg);
   max-width: 28em;
@@ -69,7 +101,7 @@
 .dreams-pull__dream-pic {
   display: none;
   width: min(100%, 320px);
-  margin: 0 auto;
+  margin: 100px auto 0 auto;
 }
 
 .dreams-pull__message.is-dream-visible .dreams-pull__dream-pic {
@@ -92,14 +124,13 @@
   perspective: 1400px;
   overflow: hidden;
   width: 100%;
-  box-sizing: border-box;
 }
 
 .dreams-pull__card {
   position: absolute;
   bottom: 0;
   width: 50%;
-  max-width: 200px;
+  max-width: 230px;
   padding: 0;
   border: none;
   background: transparent;
@@ -180,7 +211,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-sizing: border-box;
 }
 
 .dreams-pull__back-text {
@@ -265,29 +295,21 @@
   }
 }
 
-/* ——— Правая колонка ——— */
 .dreams-magic {
-  position: relative;
-  min-height: 720px;
-  padding: 48px 16px 64px;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  height: 100%;
 }
 
 .dreams-magic__stage {
   position: relative;
   width: 100%;
-  max-width: 440px;
-  min-height: 540px;
-  margin-top: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  padding-top: 40px;
-  padding-bottom: 4px;
-  box-sizing: border-box;
+  height: 100%;
+  overflow: hidden;
 }
 
 .dreams-magic__stars-layer {
@@ -295,23 +317,41 @@
   inset: 0;
   z-index: 11;
   pointer-events: none;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .dreams-magic__wand {
   position: absolute;
-  top: 8px;
+  top: 50%;
   right: clamp(0px, 2vw, 20px);
-  width: min(36%, 150px);
+  width: 170px;
   height: auto;
   pointer-events: none;
   z-index: 4;
 }
 
+.dreams-magic__rabbit-pen {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.dreams-magic__rabbit-pen .dreams-magic__rabbit {
+  position: absolute;
+  z-index: 1;
+  width: 88px;
+  margin-left: -44px;
+  margin-top: -44px;
+  pointer-events: auto;
+  touch-action: manipulation;
+}
+
 .dreams-magic__hat-wrap {
   position: relative;
   width: min(92%, 400px);
-  margin: clamp(56px, 16vh, 140px) auto 6px;
+  aspect-ratio: 453 / 349;
   z-index: 9;
 }
 
@@ -320,6 +360,8 @@
   z-index: 2;
   display: block;
   width: 100%;
+  height: 100%;
+  min-height: 0;
   padding: 0;
   border: none;
   background: transparent;
@@ -329,9 +371,16 @@
 }
 
 .dreams-magic__hat img {
-  width: 100%;
-  height: auto;
   display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: 50% 100%;
+}
+
+.dreams-magic__hat--composite img {
+  transform: scale(1);
+  transform-origin: 50% 100%;
 }
 
 .dreams-magic__hat:focus-visible {
@@ -353,15 +402,82 @@
   inset: 0;
   z-index: 12;
   pointer-events: none;
-  overflow: visible;
+  overflow: hidden;
+}
+
+.dreams-magic-rabbit-hunt {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  pointer-events: auto;
+}
+
+.dreams-magic-rabbit-hunt__backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: auto;
+  touch-action: none;
+  overscroll-behavior: none;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.dreams-magic__rabbit-hint {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 10px 16px;
+  max-width: min(92vw, 340px);
+  border-radius: 14px;
+  background: rgba(26, 26, 26, 0.88);
+  border: 1px solid rgba(227, 213, 183, 0.55);
+  color: #e3d5b7;
+  font-family: "PT Sans", sans-serif;
+  font-size: clamp(0.8rem, 2.4vw, 0.95rem);
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: center;
+  pointer-events: none;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+}
+
+.dreams-magic__stage > .dreams-magic__rabbit-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 12%;
+  transform: translateX(-50%);
+  z-index: 14;
+}
+
+.dreams-magic-rabbit-hunt > .dreams-magic__rabbit-hint {
+  position: fixed;
+  left: 50%;
+  bottom: max(20px, calc(env(safe-area-inset-bottom, 0px) + 16px));
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.dreams-magic-rabbit-hunt .dreams-magic__rabbit {
+  position: fixed;
+  margin-left: -44px;
+  margin-top: -44px;
+  width: 88px;
+  z-index: 3;
+  pointer-events: auto;
+  touch-action: manipulation;
+}
+
+html.dreams-magic-scroll-lock,
+body.dreams-magic-scroll-lock {
+  overflow: hidden;
+  overscroll-behavior: none;
 }
 
 .dreams-magic__rabbit {
   position: absolute;
-  width: 128px;
+  width: 88px;
   height: auto;
-  margin-left: -64px;
-  margin-top: -64px;
+  margin-left: -44px;
+  margin-top: -44px;
   padding: 0;
   border: none;
   background: transparent;
@@ -386,14 +502,17 @@
   position: absolute;
   margin: 0;
   padding: 0;
+  max-width: min(92%, 280px);
   font-family: "Daneehand", "Caveat", cursive;
   font-weight: 400;
-  font-size: clamp(1.65rem, 4.8vw, 2.65rem);
-  line-height: 1.1;
+  font-size: clamp(1.35rem, 3.8vw, 2.1rem);
+  line-height: 1.12;
   color: var(--color-bg);
-  white-space: nowrap;
+  white-space: normal;
+  text-align: center;
   pointer-events: none;
   text-shadow: 0 1px 0 rgba(230, 217, 195, 0.35);
+  word-break: break-word;
 }
 
 @media (max-width: 991px) {
@@ -403,11 +522,63 @@
   }
 
   .dreams-magic__stage {
-    min-height: 500px;
-    padding-top: 36px;
+    min-height: min(500px, 62vw);
+  }
+}
+
+@media (max-width: 767px) {
+  .dreams-magic {
+    flex-direction: column;
+    min-height: 0;
+    padding: 40px 16px 20px;
+    align-items: stretch;
+  }
+
+  .dreams-magic__stage {
+    flex: 1;
+    width: 100%;
+    min-height: clamp(300px, 88vw, 400px);
+    padding-bottom: 8px;
+    justify-content: flex-end;
   }
 
   .dreams-magic__hat-wrap {
-    margin-top: clamp(40px, 12vh, 100px);
+    width: min(100%, min(300px, 86vw));
+  }
+
+  .dreams-magic__hat-wrap,
+  .dreams-magic__hat {
+    margin-inline: auto;
+  }
+
+  .dreams-magic__wand {
+    top: 100px;
+    right: max(8px, env(safe-area-inset-right, 0px));
+    width: min(28vw, 96px);
+  }
+
+  .dreams-magic__stage > .dreams-magic__rabbit-hint {
+    bottom: 8%;
+    max-width: min(94vw, 300px);
+    font-size: clamp(0.75rem, 3.2vw, 0.9rem);
+    padding: 8px 12px;
+  }
+}
+
+@media (max-width: 767px) and (orientation: landscape) and (max-height: 480px) {
+  .card-sand.card-sand--magic {
+    min-height: clamp(280px, 92vh, 420px);
+  }
+
+  .dreams-magic__stage {
+    min-height: clamp(200px, 58vh, 300px);
+  }
+
+  .dreams-magic__hat-wrap {
+    width: min(38vw, 200px);
+  }
+
+  .dreams-magic {
+    padding-top: 28px;
   }
 }

@@ -1,4 +1,4 @@
-const initMarquees = () => {
+export const initMarquees = () => {
   const tracks = document.querySelectorAll('[data-marquee-track]');
 
   tracks.forEach((track) => {
@@ -12,5 +12,3 @@ const initMarquees = () => {
     track.appendChild(clone);
   });
 };
-
-document.addEventListener('DOMContentLoaded', initMarquees);

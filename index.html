@@ -22,7 +22,7 @@
     <div id="preloader" aria-hidden="true">
       <canvas id="pl-canvas"></canvas>
       <div id="pl-cursor-plane" class="pl-cursor-plane">
-        <img src="img/airplane-loader.svg" width="72" height="55" alt="" />
+        <img src="./img/airplane-loader.svg" width="72" height="55" alt="" />
       </div>
     </div>
     <div class="page">
@@ -530,9 +530,14 @@
                       src="img/dreams-column-right/stick.svg"
                       alt=""
                     />
+                    <div class="dreams-magic__rabbit-pen" data-magic-rabbit-pen aria-hidden="true"></div>
                     <div class="dreams-magic__hat-wrap">
                       <button type="button" class="dreams-magic__hat" aria-label="Шляпа фокусника">
-                        <img src="img/dreams-column-right/hat.svg" alt="" />
+                        <img
+                          data-magic-hat-img
+                          src="img/dreams-column-right/hat.svg"
+                          alt=""
+                        />
                       </button>
                     </div>
                     <div class="dreams-magic__fx" data-magic-fx aria-hidden="true"></div>
@@ -588,8 +593,6 @@
         </div>
       </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
     <script type="module" src="js/main.js"></script>
   </body>
 </html>

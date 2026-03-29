@@ -1,0 +1,10 @@
+@font-face {
+    font-family: "Daneehand";
+    src: local("Daneehand Regular Cyr"), local("Daneehand Regular"),
+      url("../../fonts/Daneehand\ Regular\ Cyr.woff2") format("woff2"),
+      url("../../fonts/Daneehand\ Regular\ Cyr.ttf") format("ttf"),
+      url("../../fonts/Daneehand\ Regular\ Cyr.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
