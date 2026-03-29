@@ -107,5 +107,17 @@
 @media (min-width: 992px) {
   .row--dreams {
     row-gap: 0;
+    align-items: stretch;
+  }
+
+  .row--dreams > [class*="col-"] {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .row--dreams .card-sand {
+    flex: 1;
+    width: 100%;
+    min-height: 0;
   }
 }

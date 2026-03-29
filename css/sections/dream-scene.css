@@ -1,8 +1,9 @@
 @font-face {
   font-family: "Daneehand";
   src: local("Daneehand Regular Cyr"), local("Daneehand Regular"),
-    url("../fonts/Daneehand-Regular.woff2") format("woff2"),
-    url("../fonts/Daneehand-Regular.woff") format("woff");
+    url("../fonts/Daneehand\ Regular\ Cyr.woff2") format("woff2"),
+    url("../fonts/Daneehand\ Regular\ Cyr.ttf") format("ttf"),
+    url("../fonts/Daneehand\ Regular\ Cyr.woff") format("woff");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -75,11 +76,11 @@
   letter-spacing: inherit;
   text-transform: inherit;
   cursor: pointer;
-  color: inherit;
+  color: var(--color-sand);
   -webkit-tap-highlight-color: transparent;
-  transition: color 0.25s ease;
-  animation: dream-keyword-pulse 5s ease-in-out infinite;
-  animation-delay: var(--pulse-delay, 0s);
+  transition:
+    color 0.2s ease,
+    text-shadow 0.2s ease;
   pointer-events: auto;
 }
 
@@ -89,8 +90,8 @@
 }
 
 .dream-keyword.is-active {
-  animation: none;
   color: var(--color-sand);
+  text-shadow: 0 0 12px rgba(230, 217, 195, 0.45);
 }
 
 .dream-scene__illustrations {
@@ -129,33 +130,26 @@
   transform: translateY(-50%) scale(1);
 }
 
-@keyframes dream-keyword-pulse {
-  0%,
-  70%,
-  100% {
-    color: rgba(170, 181, 209, 0.2);
-  }
-
-  78%,
-  88% {
-    color: #e54545;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .dream-keyword {
-    animation: none;
-  }
-
-  .dream-keyword:not(.is-active) {
-    color: #e54545;
-  }
-}
-
 @media (max-width: 991px) {
   .dream-scene {
     min-height: auto;
-    padding-bottom: 24px;
+    padding: 0 0 28px;
+  }
+
+  .dream-lines {
+    width: 100%;
+    max-width: 100%;
+    padding-left: clamp(10px, 3.5vw, 20px);
+    padding-right: clamp(10px, 3.5vw, 20px);
+    box-sizing: border-box;
+    gap: 0.28rem;
+  }
+
+  .dream-line-marquee__text {
+    font-size: clamp(1.2rem, 4.2vw, 2.75rem);
+    line-height: 1.22;
+    letter-spacing: 0.08em;
+    padding-right: clamp(1.25rem, 4vw, 2.5rem);
   }
 
   .dream-scene__illustrations {
@@ -163,8 +157,8 @@
     left: auto;
     top: auto;
     transform: none;
-    width: min(180px, 55vw);
-    height: min(200px, 35vh);
+    width: min(200px, 58vw);
+    height: min(220px, 38vh);
     margin: 20px auto 0;
   }
 
@@ -176,5 +170,16 @@
 
   .dream-preview-img.is-visible {
     transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@media (max-width: 575px) {
+  .dream-line-marquee__text {
+    font-size: clamp(1rem, 4.6vw, 1.65rem);
+    letter-spacing: 0.06em;
+  }
+
+  .dream-keyword:focus-visible {
+    outline-offset: 2px;
   }
 }

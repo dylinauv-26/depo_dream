@@ -4,38 +4,31 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Дело — мечты</title>
-    <link rel="stylesheet" href="css/preloader.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Montserrat:wght@400;500;600&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/grid.css" />
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/hero-scene.css" />
-    <link rel="stylesheet" href="css/dream-scene.css" />
-    <link rel="stylesheet" href="css/dreams-columns.css" />
-    <link rel="stylesheet" href="css/live-stars.css" />
+    <link rel="icon" type="image/png" href="img/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="img/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="img/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Depo" />
+    <link rel="manifest" href="img/favicon/site.webmanifest" />
+    <link rel="stylesheet" href="css/main.css" />
   </head>
   <body>
-    <div id="preloader">
+    <div id="preloader" aria-hidden="true">
       <canvas id="pl-canvas"></canvas>
-      <div id="curtain-top" class="preloader-curtain preloader-curtain--top" aria-hidden="true"></div>
-      <div id="curtain-bottom" class="preloader-curtain preloader-curtain--bottom" aria-hidden="true"></div>
-      <svg id="pl-path-svg" aria-hidden="true">
-        <path id="pl-path" />
-      </svg>
-      <div id="pl-plane-wrap">
-        <div id="pl-plane-tilt">
-          <img id="pl-plane" src="img/airplane-loader.svg" width="88" height="67" alt="" />
-        </div>
+      <div id="pl-cursor-plane" class="pl-cursor-plane">
+        <img src="img/airplane-loader.svg" width="72" height="55" alt="" />
       </div>
     </div>
     <div class="page">
       <div class="container">
         <div class="section-stack">
-          <header class="card-dark card-dark--hero" aria-labelledby="logo-title">
+          <header class="card-dark card-dark--hero" data-system-cursor-zone aria-labelledby="logo-title">
             <div class="hero-scene" id="hero-scene">
               <div class="hero-scene__layer hero-scene__layer--back" aria-hidden="true">
                 <div class="hero-scene__stars" id="hero-stars"></div>
@@ -527,7 +520,7 @@
               </section>
             </div>
             <div class="col-12 col-lg-6 order-1 order-lg-2" data-dream-column="magic">
-              <section class="card-sand card-sand--magic" aria-labelledby="label-magic">
+              <section class="card-sand card-sand--magic" data-system-cursor-zone aria-labelledby="label-magic">
                 <p id="label-magic" class="label-corner">Магия мечты</p>
                 <div class="dreams-magic" data-dreams-magic>
                   <div class="dreams-magic__stage">
@@ -542,6 +535,7 @@
                         <img src="img/dreams-column-right/hat.svg" alt="" />
                       </button>
                     </div>
+                    <div class="dreams-magic__fx" data-magic-fx aria-hidden="true"></div>
                   </div>
                 </div>
               </section>
@@ -562,7 +556,7 @@
             </div>
           </section>
 
-          <section class="card-dark card-dark--live" aria-labelledby="label-live">
+          <section class="card-dark card-dark--live" data-system-cursor-zone aria-labelledby="label-live">
             <p id="label-live" class="label-corner">Здесь живут мечты</p>
             <div class="live-stars" id="live-stars">
               <div class="live-stars__track" data-marquee-track>
@@ -594,14 +588,8 @@
         </div>
       </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
-    <script src="js/preloader.js"></script>
-    <script src="js/hero-scene.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/dream-scene.js"></script>
-    <script src="js/dreams-columns.js"></script>
-    <script src="js/live-stars.js"></script>
+    <script type="module" src="js/main.js"></script>
   </body>
 </html>

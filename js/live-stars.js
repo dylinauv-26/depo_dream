@@ -3,8 +3,9 @@
 
   const STAR_SRC = 'img/first-banner/star.svg';
   const STAR_COUNT = 96;
-  const FALL_CHANCE = 0.14;
   const TOAST_MS = 10000;
+
+  const TOAST_BG_CYCLE = ['#AD3831', '#37393F', '#3F85A8', '#A3519B'];
 
   const TOAST_MESSAGES = [
     'Каждая мечта оставляет след — даже если она ещё в пути.',
@@ -36,12 +37,6 @@
     btn.style.left = `${4 + Math.random() * 92}%`;
     btn.style.top = `${4 + Math.random() * 88}%`;
 
-    if (!reduceMotion() && Math.random() < FALL_CHANCE) {
-      btn.classList.add('live-stars__star--fall');
-      btn.style.setProperty('--fall-dur', `${7 + Math.random() * 8}s`);
-      btn.style.setProperty('--fall-delay', `${Math.random() * 6}s`);
-    }
-
     btn.appendChild(img);
     return btn;
   };
@@ -68,12 +63,28 @@
     });
   };
 
+  const runStarPulse = (root) => {
+    if (reduceMotion() || typeof gsap === 'undefined') return;
+
+    root.querySelectorAll('.live-stars__star').forEach((el) => {
+      gsap.to(el, {
+        opacity: 0.45,
+        duration: 0.6 + Math.random() * 0.9,
+        repeat: -1,
+        yoyo: true,
+        delay: Math.random() * 2.5,
+        ease: 'sine.inOut',
+      });
+    });
+  };
+
   const initToast = (root) => {
     const toast = root.querySelector('.live-stars__toast');
     const toastText = root.querySelector('.live-stars__toast-text');
     if (!toast || !toastText) return;
 
     let hideTimer;
+    let toastColorIndex = 0;
 
     const hideToast = () => {
       toast.classList.remove('is-visible');
@@ -83,6 +94,9 @@
 
     const showToast = (text) => {
       clearTimeout(hideTimer);
+      const bg = TOAST_BG_CYCLE[toastColorIndex];
+      toastColorIndex = (toastColorIndex + 1) % TOAST_BG_CYCLE.length;
+      toast.style.backgroundColor = bg;
       toastText.textContent = text;
       toast.removeAttribute('hidden');
       requestAnimationFrame(() => {
@@ -117,6 +131,7 @@
 
     fillSegment(segments[0]);
     syncClone(root);
+    runStarPulse(root);
     initToast(root);
   };
 

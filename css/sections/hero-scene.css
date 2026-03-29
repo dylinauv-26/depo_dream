@@ -148,8 +148,8 @@
 }
 
 .hero-scene__logo .logo-delo {
-  width: min(100%, 380px);
-  max-width: 55vw;
+  width: min(100%, 720px);
+  max-width: 86vw;
   margin: 0 auto;
 }
 
@@ -194,7 +194,7 @@
   }
 
   .hero-scene__logo .logo-delo {
-    max-width: 72vw;
+    max-width: 90vw;
   }
 }
 

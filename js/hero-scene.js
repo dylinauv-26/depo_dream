@@ -24,18 +24,40 @@
     el.addEventListener('mouseleave', handleLeave);
   };
 
+  const shuffleIndices = (len) => {
+    const arr = Array.from({ length: len }, (_, i) => i);
+    for (let i = len - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  };
+
   const initStars = (container) => {
     if (!container) return;
+    const cols = 7;
+    const rows = Math.ceil(STAR_COUNT / cols);
+    const cellCount = cols * rows;
+    const order = shuffleIndices(cellCount);
+
     const frag = document.createDocumentFragment();
     for (let i = 0; i < STAR_COUNT; i += 1) {
+      const idx = order[i];
+      const col = idx % cols;
+      const row = Math.floor(idx / cols);
+      const jitterX = 0.06 + Math.random() * 0.88;
+      const jitterY = 0.06 + Math.random() * 0.88;
+      const leftPct = ((col + jitterX) / cols) * 90 + 5;
+      const topPct = ((row + jitterY) / rows) * 86 + 7;
+
       const img = document.createElement('img');
       img.src = STAR_SRC;
       img.alt = '';
       img.className = 'hero-scene__star hero-scene__el';
       img.width = 25;
       img.height = 22;
-      img.style.left = `${6 + Math.random() * 88}%`;
-      img.style.top = `${5 + Math.random() * 82}%`;
+      img.style.left = `${leftPct}%`;
+      img.style.top = `${topPct}%`;
       const size = 7 + Math.random() * 12;
       img.style.width = `${size}px`;
       frag.appendChild(img);

@@ -1,5 +1,21 @@
+/**
+ * Ключевые слова: всегда бежевые; клик — стоп строки (marquee) + картинка.
+ */
 (function () {
   'use strict';
+
+  const resumeAllTracks = (scene) => {
+    scene.querySelectorAll('.dream-line-marquee__track').forEach((track) => {
+      track.style.animationPlayState = '';
+    });
+  };
+
+  const pauseTrackFor = (btn) => {
+    const row = btn.closest('.dream-line-marquee');
+    if (!row) return;
+    const track = row.querySelector('.dream-line-marquee__track');
+    if (track) track.style.animationPlayState = 'paused';
+  };
 
   const initDreamKeywords = () => {
     const scene = document.querySelector('[data-dream-scene]');
@@ -31,6 +47,7 @@
         k.classList.remove('is-active');
         k.setAttribute('aria-pressed', 'false');
       });
+      resumeAllTracks(scene);
 
       if (wasActive) {
         hideAllPreviews();
@@ -43,6 +60,7 @@
           k.setAttribute('aria-pressed', 'true');
         }
       });
+      pauseTrackFor(btn);
       showPreview(id);
     };
 

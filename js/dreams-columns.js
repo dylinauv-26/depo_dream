@@ -60,46 +60,57 @@
     });
   };
 
+  const MAGIC_WORDS = ['Абракадабра', 'Симсалабим', 'Хокус-покус', 'Алаказам'];
+
   const initMagic = () => {
     const root = document.querySelector('[data-dreams-magic]');
     if (!root || typeof gsap === 'undefined') return;
 
     const hat = root.querySelector('.dreams-magic__hat');
     const layer = root.querySelector('[data-magic-stars-layer]');
-    if (!hat || !layer) return;
+    const fx = root.querySelector('[data-magic-fx]');
+    if (!hat || !layer || !fx) return;
 
     const starSrc = 'img/dreams-column-right/star.svg';
-    let magicState = 0;
-    let busy = false;
-    const html = document.documentElement;
+    const rabbitSrc = 'img/dreams-column-right/rabbit.svg';
 
-    const clearStars = () => {
-      gsap.killTweensOf('.dreams-magic__star-particle');
-      layer.querySelectorAll('.dreams-magic__star-particle').forEach((n) => n.remove());
+    /** @type {0 | 1 | 2} */
+    let phase = 0;
+    let busy = false;
+
+    const killLayerStars = () => {
+      layer.querySelectorAll('.dreams-magic__star-particle').forEach((el) => {
+        gsap.killTweensOf(el);
+        el.remove();
+      });
     };
 
-    const applyHtmlState = (state) => {
-      html.classList.remove('magic-theme', 'magic-void');
-      if (state === 1) {
-        html.classList.add('magic-theme');
-      } else if (state === 3) {
-        html.classList.add('magic-theme', 'magic-void');
-      }
+    const clearFx = () => {
+      fx.querySelectorAll('.dreams-magic__rabbit, .dreams-magic__magic-word').forEach((el) => {
+        gsap.killTweensOf(el);
+        el.remove();
+      });
+    };
+
+    const hatOriginLocal = () => {
+      const hatRect = hat.getBoundingClientRect();
+      const layerRect = layer.getBoundingClientRect();
+      return {
+        x: hatRect.left + hatRect.width / 2 - layerRect.left,
+        y: hatRect.top + hatRect.height * 0.06 - layerRect.top,
+      };
     };
 
     const playStars = (onDone) => {
-      clearStars();
-      const hatRect = hat.getBoundingClientRect();
-      const layerRect = layer.getBoundingClientRect();
-      const cx = hatRect.left + hatRect.width / 2 - layerRect.left;
-      const cy = hatRect.top + hatRect.height * 0.38 - layerRect.top;
+      killLayerStars();
+      const { x: cx, y: cy } = hatOriginLocal();
 
       if (reduceMotion()) {
         onDone();
         return;
       }
 
-      const count = 14;
+      const count = 16;
       const particles = [];
       for (let i = 0; i < count; i += 1) {
         const img = document.createElement('img');
@@ -114,62 +125,163 @@
 
       const tl = gsap.timeline({
         onComplete: () => {
-          clearStars();
+          killLayerStars();
           onDone();
         },
       });
 
       particles.forEach((el, i) => {
-        const angle = (i / count) * Math.PI * 2 + Math.random() * 0.5;
-        const dist = 60 + Math.random() * 90;
+        const t = count <= 1 ? 0.5 : i / (count - 1);
+        const angle = -Math.PI + t * Math.PI + (Math.random() - 0.5) * 0.28;
+        const dist = 90 + Math.random() * 150;
         tl.to(
           el,
           {
             x: Math.cos(angle) * dist,
-            y: Math.sin(angle) * dist * 0.6 - 40,
+            y: Math.sin(angle) * dist - 32,
             rotation: Math.random() * 360,
             opacity: 0,
-            scale: 0.35 + Math.random() * 0.4,
-            duration: 0.85,
+            scale: 0.55 + Math.random() * 0.45,
+            duration: 0.88,
             ease: 'power2.out',
           },
-          i * 0.02,
+          i * 0.016,
+        );
+      });
+    };
+
+    const spawnRabbits = () => {
+      clearFx();
+      const { x: cx, y: cy } = hatOriginLocal();
+      const n = 7;
+
+      for (let i = 0; i < n; i += 1) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'dreams-magic__rabbit';
+        btn.setAttribute('aria-label', 'Кролик — нажми, чтобы убрать');
+        const img = document.createElement('img');
+        img.src = rabbitSrc;
+        img.alt = '';
+        btn.appendChild(img);
+        btn.style.left = `${cx}px`;
+        btn.style.top = `${cy}px`;
+        fx.appendChild(btn);
+
+        const handleRemoveRabbit = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          gsap.to(btn, {
+            scale: 0,
+            opacity: 0,
+            duration: 0.22,
+            ease: 'power2.in',
+            onComplete: () => btn.remove(),
+          });
+        };
+
+        btn.addEventListener('click', handleRemoveRabbit);
+        btn.addEventListener('keydown', (e) => {
+          if (e.key !== 'Enter' && e.key !== ' ') return;
+          handleRemoveRabbit(e);
+        });
+
+        const t = n <= 1 ? 0.5 : i / (n - 1);
+        const angle = -Math.PI + t * Math.PI + (Math.random() - 0.5) * 0.32;
+        const dist = 70 + Math.random() * 155;
+        gsap.fromTo(
+          btn,
+          { x: 0, y: 0, scale: 0.12, opacity: 0, rotation: -12 },
+          {
+            x: Math.cos(angle) * dist,
+            y: Math.sin(angle) * dist - 40,
+            scale: 0.92 + Math.random() * 0.18,
+            opacity: 1,
+            rotation: Math.random() * 28 - 14,
+            duration: 0.82,
+            ease: 'power2.out',
+          },
+        );
+      }
+    };
+
+    const spawnWords = () => {
+      clearFx();
+      const { x: cx, y: cy } = hatOriginLocal();
+
+      MAGIC_WORDS.forEach((word, i) => {
+        const el = document.createElement('p');
+        el.className = 'dreams-magic__magic-word';
+        el.textContent = word;
+        el.style.left = `${cx}px`;
+        el.style.top = `${cy}px`;
+        fx.appendChild(el);
+        gsap.set(el, { xPercent: -50, yPercent: -50 });
+
+        const wn = MAGIC_WORDS.length;
+        const t = wn <= 1 ? 0.5 : i / (wn - 1);
+        const angle = -Math.PI + t * Math.PI + (Math.random() - 0.5) * 0.22;
+        const dist = 95 + i * 58;
+        gsap.fromTo(
+          el,
+          { x: 0, y: 0, scale: 0.35, opacity: 0 },
+          {
+            x: Math.cos(angle) * dist,
+            y: Math.sin(angle) * dist - 48,
+            scale: 1.05,
+            opacity: 1,
+            duration: 0.62,
+            ease: 'back.out(1.12)',
+            delay: i * 0.08,
+          },
         );
       });
     };
 
     hat.addEventListener('click', () => {
       if (busy) return;
-      const prev = magicState;
-      magicState = (magicState + 1) % 4;
 
-      if (prev === 0 && magicState === 1) {
+      if (phase === 0) {
         busy = true;
         playStars(() => {
-          applyHtmlState(1);
+          spawnRabbits();
+          phase = 1;
           busy = false;
         });
         return;
       }
 
-      if (magicState === 2) {
-        clearStars();
-        applyHtmlState(2);
-        return;
-      }
-
-      if (prev === 2 && magicState === 3) {
+      if (phase === 1) {
         busy = true;
+        clearFx();
         playStars(() => {
-          applyHtmlState(3);
+          spawnWords();
+          phase = 2;
           busy = false;
         });
         return;
       }
 
-      if (prev === 3 && magicState === 0) {
-        clearStars();
-        applyHtmlState(0);
+      if (phase === 2) {
+        const words = fx.querySelectorAll('.dreams-magic__magic-word');
+        killLayerStars();
+        if (!words.length) {
+          phase = 0;
+          return;
+        }
+        busy = true;
+        gsap.to(words, {
+          opacity: 0,
+          scale: 0.45,
+          duration: 0.32,
+          stagger: 0.035,
+          ease: 'power2.in',
+          onComplete: () => {
+            words.forEach((w) => w.remove());
+            phase = 0;
+            busy = false;
+          },
+        });
       }
     });
   };
